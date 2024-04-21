@@ -1,9 +1,11 @@
-interface IUser {
+
+export interface IUser {
     id: number
     name: string
-    password: string
     email: string
-    estado: boolean
+    birthdate: Date
+    nDni: number
+    image: string
+    credentialsId: number
 }
 
-export default IUser;

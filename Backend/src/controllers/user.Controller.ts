@@ -3,13 +3,13 @@ import { createUserService } from "../services/userServices";
 const getUser = async () => {};
 
  export const createUser = async (req: Request, res: Response) => {
-  try {
-    const { name, password, email, estado } = req.body;
-    const data = await createUserService({ name, password, email, estado });
-    res.status(201).json(data);
-  } catch (error) {
-    console.log(error);
-  }
+      const { name, email, password } = req.body;
+
+      const newUser = await createUserService({ name, email, password });
+      res.status(201).json(newUser);
+
+
+
 };
 
 const updateUser = async () => {};

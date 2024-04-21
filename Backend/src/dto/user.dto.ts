@@ -1,8 +1,16 @@
-interface userDto {
-    name: string;
+export interface credentialDto {
+    username: string;
     password: string;
-    email: string;
-    estado: boolean;
 }
 
-export default userDto;
+export interface userDto {
+    name: string;
+    email: string;
+    password: string;
+}
+export interface appoimentDto {
+    date: Date;
+    time: Date;
+    userId: number;
+    status: string;
+}
