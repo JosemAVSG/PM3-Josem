@@ -5,9 +5,10 @@ import  { createCredentialService} from './credentialServices'
 
 const user: IUser[]  = [];
 
-export const getUsers =  async (): Promise<IUser[]> => user;
+export const getUsersService =  async (): Promise<IUser[]> => user;
 
-export const getUserById = async (id: number): Promise <IUser | undefined> => user.find((item) => item.id === id);
+
+export const getUserByIdService = async (id: number): Promise <IUser | undefined> => user.find((item) => item.id === id);
 
 export const createUserService = async (newUser: userDto): Promise<IUser> => {
     

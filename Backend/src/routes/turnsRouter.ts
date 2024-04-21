@@ -1,12 +1,11 @@
-import router from "./indexRouter";
+import { Router } from "express";
 
-const turnRouter = router;
+const router = Router();
 
+router.get('/appointments',)
+router.get('/appointment/:id',);
+router.post('/appointment/schedule',);
+router.put('/appointment/cancel',);
+router.put('/appointment/reschedule',);
 
-turnRouter.get('/appointments',)
-turnRouter.get('/appointment/:id',);
-turnRouter.post('/appointment/schedule',);
-turnRouter.put('/appointment/cancel',);
-turnRouter.put('/appointment/reschedule',);
-
-export default turnRouter;
+export default router;
