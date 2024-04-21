@@ -1,11 +1,6 @@
-interface User {
-    name: string
-    age: number
-}
+import app from './server';
+import PORT  from './config/env';
 
-const user: User = {
-    name: "John",
-    age: 30
-}
-
-console.log(user)
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+})
