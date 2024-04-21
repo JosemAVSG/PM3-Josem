@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { createUser } from "../controllers/user.Controller";
 
 const router = Router();
 
@@ -7,7 +8,7 @@ router.get('/users/:id',);
 
 
 router.post('/users',)
-router.post('/users/resgister',);
+router.post('/users/resgister', createUser );
 router.post('/users/login',);
 
 router.get('/appointments',)
