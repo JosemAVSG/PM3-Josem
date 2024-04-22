@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-
+import { User } from "../entities/user";
 export const AppDataSource = new DataSource({
     type: "postgres",
     host: "localhost",
@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
     database: "demosql",
     synchronize: true,
     logging: true,
-    entities: [],
+    entities: [User],
     subscribers: [],
     migrations: [],
 })

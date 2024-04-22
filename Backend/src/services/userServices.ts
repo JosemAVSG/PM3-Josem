@@ -1,11 +1,19 @@
+import { AppDataSource } from "../config/data-source";
 import { userDto } from "../dto/user.dto";
+import { User } from "../entities/user";
 import { IUser } from "../interfaces/user";
 import { ValidateCredential, createCredentialService } from "./credentialServices";
 
 const user: IUser[] = [];
 
-export const getUsersService = async (): Promise<IUser[]> => user;
-
+export const getUsersService = async () => {
+  try {
+   const users = await AppDataSource.getRepository(User).find();
+   return users;
+  } catch (error) {
+    console.log(error)
+  }
+} 
 export const getUserByIdService = async (
   id: number
 ): Promise<IUser | undefined> => {
