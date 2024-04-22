@@ -3,7 +3,7 @@ import { ICredential } from "../interfaces/credential";
 
 const credentials: ICredential[] = [];
 
-export const createCredentialService= async ( credentiales: credentialDto )=>  {
+export const createCredentialService = async ( credentiales: credentialDto ) : Promise<ICredential>  => {
 
     const { username, password } = credentiales;
     const newCredential = { id: credentials.length + 1, username, password };

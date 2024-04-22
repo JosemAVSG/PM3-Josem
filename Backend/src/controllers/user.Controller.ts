@@ -13,7 +13,11 @@ export const getUserById = async ( req : Request, res: Response) => {
 
   try {
     const { id } = req.params;
+    console.log(id);
+    
     const user = await getUserByIdService(Number(id));
+    console.log(user);
+    
     res.status(200).json(user);
   } catch (error) {
     console.log(error);
@@ -22,7 +26,8 @@ export const getUserById = async ( req : Request, res: Response) => {
 
  export const createUser = async (req: Request, res: Response) => {
       const { name, email, password } = req.body;
-
+      
+        
       const newUser = await createUserService({ name, email, password });
       res.status(201).json(newUser);
 };

@@ -1,6 +1,10 @@
 "use strict";
-const user = {
-    name: "John",
-    age: 30
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-console.log(user);
+Object.defineProperty(exports, "__esModule", { value: true });
+const server_1 = __importDefault(require("./server"));
+const env_1 = __importDefault(require("./config/env"));
+server_1.default.listen(env_1.default, () => {
+    console.log(`Server running on port ${env_1.default}`);
+});
