@@ -16,8 +16,8 @@ export class User {
   nDni: number;
   @Column("bytea")
   image: string;
-  @OneToOne(() => Credentials, (credentials) => credentials.id)
-  @JoinColumn({ name: "credentialsId" })
-  credentialsId: number;
+  @OneToOne(() => Credentials)
+  @JoinColumn()
+  credentials: Credentials;
 }
 

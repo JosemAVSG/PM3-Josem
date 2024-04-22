@@ -30,39 +30,42 @@ export const getUserByIdService = async (
 };
 
 export const createUserService = async (newUser: userDto): Promise<User> => {
-
-  const credentials: Credentials | undefined = await createCredentialService({
-    username: newUser.name,
-    password: newUser.password,
-  });
-
-  if(!credentials){
-    throw new Error("Credentials not created");
-  }
-  const {id} = credentials;
-
-  const userCreated: User = {
-    id: user.length + 1,
+  
+  const userCreated = {
     name: newUser.name,
     email: newUser.email,
     nDni: 0,
     image: "",
     birthdate: new Date(),
-    credentialsId: id
   };
-  const users = userModel.create(userCreated);
+  const users = userModel.create({...userCreated});
   const data = await userModel.save(users);
+
+    
+  const credentials: Credentials | undefined = await createCredentialService({
+    username: newUser.name,
+    password: newUser.password,
+    userId: data.id, 
+  });
+
+  if(!credentials){
+    throw new Error("Credentials not created");
+  }
+
   return data;
+
 };
 
-export const loginUserService = async (login: userDto): Promise<IUser> => {
-  const credentials = await ValidateCredential({
-    username: login.name,
-    password: login.password,
-  });
-  const userFound = user.find((user) => user.credentialsId === credentials);
-  if (!userFound) {
-    throw new Error("User not found");
-  }
-  return userFound;
-};
+// export const loginUserService = async (login: userDto): Promise<IUser> => {
+
+//   const credentials = await ValidateCredential({
+//     username: login.name,
+//     password: login.password,
+//     userId:1
+//   });
+//   const userFound = user.find((user) => user.credentialsId === credentials);
+//   if (!userFound) {
+//     throw new Error("User not found");
+//   }
+//   return userFound;
+// };

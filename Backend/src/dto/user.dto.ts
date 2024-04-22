@@ -2,6 +2,7 @@
 export interface credentialDto {
     username: string;
     password: string;
+    userId: number;
 }
 
 export interface userDto {

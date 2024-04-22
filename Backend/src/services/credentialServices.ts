@@ -8,8 +8,17 @@ const credentials: ICredential[] = [];
 export const createCredentialService = async ( credentiales: credentialDto ) : Promise<Credentials | undefined >  => {
     try {
         
-        const { username, password } = credentiales;
-        const newCredential = credentialModel.create({ username, password });
+        const { username, password, userId } = credentiales;
+
+        const user = await userModel.findOneBy({ id: userId });
+
+        if (!user) {
+            throw new Error("User not found");
+        }
+        user.credentials= credentiales
+        await userModel.save(user);
+
+        const newCredential = credentialModel.create({ username, password , userId });
         const data = await credentialModel.save(newCredential);
         return data;
     } catch (error) {
