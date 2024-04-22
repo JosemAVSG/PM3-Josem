@@ -12,7 +12,7 @@ const user: IUser[] = [];
 
 export const getUsersService = async (): Promise<User[] | undefined> => {
   try {
-    const users = await userModel.find();
+    const users : User[] | undefined = await userModel.find();
     return users;
   } catch (error) {
     console.log(error);
@@ -22,7 +22,7 @@ export const getUserByIdService = async (
   id: number
 ): Promise<User | null | undefined> => {
   try {
-    const data = await userModel.findOneBy({ id: id });
+    const data : User | null = await userModel.findOneBy({ id: id });
     return data;
   } catch (error) {
     console.log(error);
@@ -31,22 +31,24 @@ export const getUserByIdService = async (
 
 export const createUserService = async (newUser: userDto): Promise<User> => {
 
-  const credentials = await createCredentialService({
+  const credentials: Credentials | undefined = await createCredentialService({
     username: newUser.name,
     password: newUser.password,
   });
 
+  if(!credentials){
+    throw new Error("Credentials not created");
+  }
+  const {id} = credentials;
 
- console.log(credentials?.id);
- 
   const userCreated: User = {
-    
+    id: user.length + 1,
     name: newUser.name,
     email: newUser.email,
     nDni: 0,
     image: "",
     birthdate: new Date(),
-    credentialsId: credentials?.id,
+    credentialsId: id
   };
   const users = userModel.create(userCreated);
   const data = await userModel.save(users);

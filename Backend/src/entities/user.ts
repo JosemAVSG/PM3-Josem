@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Credentials } from "./credential";
 @Entity({
   name: "users",
 })
@@ -16,7 +16,8 @@ export class User {
   nDni: number;
   @Column("bytea")
   image: string;
-  @Column("integer")
+  @OneToOne(() => Credentials, (credentials) => credentials.id)
+  @JoinColumn({ name: "credentialsId" })
   credentialsId: number;
 }
 
