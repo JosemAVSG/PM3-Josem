@@ -13,7 +13,8 @@ export const GetAppointmentById = (id: number) => {
     return foundAppointment;
 }
 
-export const CreateAppointment = (appointment: appoimentDto, userId: number) => {
+export const CreateAppointment = (appointment: appoimentDto, userId: number) : IAppointment => {
+    
     const newAppointment = {
         id: appointments.length + 1,
         date: appointment.date,
@@ -28,7 +29,7 @@ export const CreateAppointment = (appointment: appoimentDto, userId: number) => 
 export const CancelAppointment = (id: number) => {
     const foundAppointment = appointments.find(appointment => appointment.id === id);
     if (foundAppointment) {
-        foundAppointment.status = "cancelled";
+        foundAppointment.status = false;
     }
     return foundAppointment;
 }

@@ -1,9 +1,10 @@
-export interface IAppointment {
+
+export interface IAppointment  {
     id: number
     date: Date
     time: Date
     userId: number
-    status: string
+    status: boolean
 }
 
 
