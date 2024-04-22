@@ -19,13 +19,14 @@ export class User {
   @Column("integer")
   credentialsId: number;
 }
-
-// export interface IUser {
-//     id: number
-//     name: string
-//     email: string
-//     birthdate: Date
-//     nDni: number
-//     image: string
-//     credentialsId: number
-// }
+@Entity({
+    name: "credentials"
+})
+export class Credentials {
+  @PrimaryGeneratedColumn()
+  id: number;
+  @Column({ unique: true })
+  username: string;
+  @Column()
+  password: string;
+}
