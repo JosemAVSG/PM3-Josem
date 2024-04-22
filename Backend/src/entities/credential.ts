@@ -5,7 +5,7 @@ import { User } from "./user";
 })
 export class Credentials {
   @PrimaryColumn()
-  userId: number;
+  id: number;
   @Column()
   username: string;
   @Column()

@@ -12,7 +12,11 @@ const user: IUser[] = [];
 
 export const getUsersService = async (): Promise<User[] | undefined> => {
   try {
-    const users : User[] | undefined = await userModel.find();
+    const users : User[] | undefined = await userModel.find({
+      relations: {
+        credentials: true,
+      },
+    });
     return users;
   } catch (error) {
     console.log(error);

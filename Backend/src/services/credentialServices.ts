@@ -9,18 +9,22 @@ export const createCredentialService = async ( credentiales: credentialDto ) : P
     try {
         
         const { username, password, userId } = credentiales;
+         
 
         const user = await userModel.findOneBy({ id: userId });
 
-        if (!user) {
+        const newCredential = credentialModel.create({ username, password , id: userId });
+        await credentialModel.save(newCredential);
+        console.log(newCredential);
+        if (user){
+            user.credentials = newCredential
+
+            await userModel.save(user);
+
+            return newCredential;
+        }else{
             throw new Error("User not found");
         }
-        user.credentials= credentiales
-        await userModel.save(user);
-
-        const newCredential = credentialModel.create({ username, password , userId });
-        const data = await credentialModel.save(newCredential);
-        return data;
     } catch (error) {
         console.log(error);
     }
