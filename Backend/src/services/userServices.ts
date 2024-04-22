@@ -2,6 +2,7 @@ import { userModel } from "../config/data-source";
 import { userDto } from "../dto/user.dto";
 import { IUser } from "../interfaces/user";
 import { User } from "../entities/user";
+import { Credentials } from "../entities/credential";
 import {
   ValidateCredential,
   createCredentialService,
@@ -21,7 +22,7 @@ export const getUserByIdService = async (
   id: number
 ): Promise<User | null | undefined> => {
   try {
-    const data = await userModel.findOne({ where: { id: id } });
+    const data = await userModel.findOneBy({ id: id });
     return data;
   } catch (error) {
     console.log(error);
@@ -29,20 +30,23 @@ export const getUserByIdService = async (
 };
 
 export const createUserService = async (newUser: userDto): Promise<User> => {
+
   const credentials = await createCredentialService({
     username: newUser.name,
     password: newUser.password,
   });
-  const { id } = credentials;
 
+
+ console.log(credentials?.id);
+ 
   const userCreated: User = {
-    id: user.length + 1,
+    
     name: newUser.name,
     email: newUser.email,
     nDni: 0,
     image: "",
     birthdate: new Date(),
-    credentialsId: id,
+    credentialsId: credentials?.id,
   };
   const users = userModel.create(userCreated);
   const data = await userModel.save(users);

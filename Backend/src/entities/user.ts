@@ -19,14 +19,4 @@ export class User {
   @Column("integer")
   credentialsId: number;
 }
-@Entity({
-    name: "credentials"
-})
-export class Credentials {
-  @PrimaryGeneratedColumn()
-  id: number;
-  @Column({ unique: true })
-  username: string;
-  @Column()
-  password: string;
-}
+
