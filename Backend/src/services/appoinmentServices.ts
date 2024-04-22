@@ -13,14 +13,14 @@ export const GetAppointmentById = (id: number) => {
     return foundAppointment;
 }
 
-export const CreateAppointment = (appointment: appoimentDto, userId: number) : IAppointment => {
+export const CreateAppointment = (appointment: appoimentDto) : IAppointment => {
     
     const newAppointment = {
         id: appointments.length + 1,
         date: appointment.date,
         time: appointment.time,
         status: appointment.status,
-        userId
+        userId : appointment.userId
     }
     appointments.push(newAppointment);
     return newAppointment;

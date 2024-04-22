@@ -6,7 +6,7 @@ import { CreateAppointment, GetAllAppointments, CancelAppointment, GetAppointmen
 export const createTurn = async (req: Request, res: Response) => {
 
     const { date, time, userId ,status } = req.body;
-    const newTurn =  CreateAppointment({ date, time, userId , status }, userId);
+    const newTurn =  CreateAppointment({ date, time, userId , status });
     res.status(201).json(newTurn);
 }
 
