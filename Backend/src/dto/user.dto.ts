@@ -11,8 +11,9 @@ export interface userDto {
     password: string;
 }
 export interface appoimentDto {
-    date: Date;
+    dia: string ;
     time: Date;
+    timeEnd: Date;
     userId: number;
     status: boolean;
 }

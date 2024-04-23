@@ -1,19 +1,17 @@
-import  { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import  { Entity, PrimaryGeneratedColumn,OneToMany, Column, ManyToOne } from "typeorm";
 import { Turn } from "./turn";
 
-@Entity("horario")
+@Entity()
 export class Horario {
     @PrimaryGeneratedColumn()
     id: number;
     @Column()
-    hora: string;
-    @Column({ type: "enum", enum: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"] })
-    dia: string;
-    @Column({ type: "time", default: "06:00:00" }) 
-    horaLimite: string;
+    date: string;
     @Column()
-    estado: string;
-    @ManyToOne(() => Turn, (turn) => turn.id)
+    time: string;
+    @Column({ type: "time", default: "06:00:00" }) 
+    timeEnd: string;
+    @OneToMany(() => Turn, (turn) => turn.id)
     turn: Turn[];
 }
 
