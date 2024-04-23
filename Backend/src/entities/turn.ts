@@ -10,10 +10,11 @@ export class Turn {
     status: boolean;
     @ManyToOne(() => User, (user) => user.turns)
     user: User;
-    @ManyToOne(() => Horario, (horario) =>horario.turn )
-    horario: Horario[]
+    @ManyToOne(() => Horario, (horario) =>horario.turns )
+    horario: Horario;
     @OneToMany(() => Historial, historial => historial.turn)
     historials: Historial[]; 
+ 
 }
 
 

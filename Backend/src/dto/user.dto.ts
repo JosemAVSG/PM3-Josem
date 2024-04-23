@@ -17,3 +17,9 @@ export interface appoimentDto {
     userId: number;
     status: boolean;
 }
+export interface horarioDto {
+    date: string;
+    time: Date;
+    timeEnd: Date;
+    idturn:number;
+}

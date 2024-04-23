@@ -8,10 +8,10 @@ export class Horario {
     @Column()
     date: string;
     @Column()
-    time: string;
+    time: Date;
     @Column({ type: "time", default: "06:00:00" }) 
-    timeEnd: string;
-    @OneToMany(() => Turn, (turn) => turn.id)
-    turn: Turn[];
+    timeEnd: Date;
+    @OneToMany(() => Turn, (turn) => turn.horario)
+    turns: Turn[];
 }
 
