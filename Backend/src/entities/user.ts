@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany } from "typeorm";
 import { Credentials } from "./credential";
+import { Turn } from "./turn";
+import { Historial } from "./historial";
 @Entity({
   name: "users",
 })
@@ -19,5 +21,9 @@ export class User {
   @OneToOne(() => Credentials)
   @JoinColumn()
   credentials: Credentials;
+  @OneToMany(() => Turn, turn => turn.user)
+  turns: Turn[];
+  @OneToMany(() => Historial, historial => historial.user)
+  historials: Historial[];
 }
 

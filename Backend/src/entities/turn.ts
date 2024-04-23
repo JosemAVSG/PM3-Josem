@@ -1,6 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-
-@Entity()
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany,ManyToOne } from "typeorm";
+import { User } from "./user";
+import { Horario } from "./horario";
+import { Historial } from "./historial";
+@Entity({ name: 'turn'} )
 export class Turn {
     @PrimaryGeneratedColumn()
     id: number;
@@ -9,7 +11,13 @@ export class Turn {
     @Column()
     time: Date;
     @Column()
-    userId: number;
-    @Column()
     status: boolean;
+    @ManyToOne(() => User, (user) => user.turns)
+    user: User;
+    @OneToMany(() => Horario, (horario) =>horario.turn )
+    horario: Horario[]
+    @OneToMany(() => Historial, historial => historial.turn)
+    historials: Historial[]; 
 }
+
+
