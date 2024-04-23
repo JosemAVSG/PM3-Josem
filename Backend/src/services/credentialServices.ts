@@ -15,7 +15,7 @@ export const createCredentialService = async ( credentiales: credentialDto ) : P
 
         const newCredential = credentialModel.create({ username, password , id: userId });
         await credentialModel.save(newCredential);
-        console.log(newCredential);
+      
         if (user){
             user.credentials = newCredential
 

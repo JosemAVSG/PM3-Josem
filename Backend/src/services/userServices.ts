@@ -42,7 +42,7 @@ export const createUserService = async (newUser: userDto): Promise<User> => {
     image: "",
     birthdate: new Date(),
   };
-  const users = userModel.create({...userCreated});
+  const users =  userModel.create({...userCreated});
   const data = await userModel.save(users);
 
     
