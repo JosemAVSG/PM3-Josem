@@ -34,7 +34,6 @@ export const getUserByIdService = async (
 };
 
 export const createUserService = async (newUser: userDto): Promise<User> => {
-  
   const userCreated = {
     name: newUser.name,
     email: newUser.email,
@@ -42,10 +41,9 @@ export const createUserService = async (newUser: userDto): Promise<User> => {
     image: "",
     birthdate: new Date(),
   };
-  const users =  userModel.create({...userCreated});
-  const data = await userModel.save(users);
 
-    
+  const users =  userModel.create({...userCreated});
+  const data = await userModel.save(users);  
   const credentials: Credentials | undefined = await createCredentialService({
     username: newUser.name,
     password: newUser.password,

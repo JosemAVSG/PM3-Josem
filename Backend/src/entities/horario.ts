@@ -7,9 +7,9 @@ export class Horario {
     id: number;
     @Column()
     date: string;
-    @Column()
+    @Column({ type: "time", default: "06:00:00" })
     time: Date;
-    @Column({ type: "time", default: "06:00:00" }) 
+    @Column({ type: "time", default: "18:00:00" }) 
     timeEnd: Date;
     @OneToMany(() => Turn, (turn) => turn.horario)
     turns: Turn[];

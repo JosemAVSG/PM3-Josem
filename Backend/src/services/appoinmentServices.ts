@@ -7,8 +7,8 @@ import { Horario } from "../entities/horario";
 
 const appointments: IAppointment[] = [];
 
-export const GetAllAppointments = (): Promise<Turn[]> => {
-  return turnModel.find();
+export const GetAllAppointments = async (): Promise<Turn[]> => {
+  return await turnModel.find();
 };
 
 export const GetAppointmentById = async (
@@ -30,6 +30,7 @@ export const CreateAppointment = async (appointment: appoimentDto):Promise<Turn 
     const newAppointment: Turn | undefined = await turnModel.save(createAppointment);
 
     const user = await userModel.findOneBy({ id: userId });
+    console.log(newAppointment);
     
     const horario: Horario | undefined = await createHorario({
       date: dia,
@@ -39,8 +40,8 @@ export const CreateAppointment = async (appointment: appoimentDto):Promise<Turn 
     });
 
     if (user && horario) {
-      user.turns = [...user.turns, newAppointment];
-      horario.turns = [...horario.turns, newAppointment];
+      user.turns= [newAppointment];
+      newAppointment.horario=horario;
       await userModel.save(user);
       await horarioModel.save(horario);
 
@@ -53,12 +54,20 @@ export const CreateAppointment = async (appointment: appoimentDto):Promise<Turn 
   }
 };
 
-export const CancelAppointment = (id: number) => {
-  const foundAppointment = appointments.find(
-    (appointment) => appointment.id === id
-  );
-  if (foundAppointment) {
-    foundAppointment.status = false;
+export const cancelAppointment = async (id: number): Promise<Turn | undefined> => {
+
+  try {
+      const foundAppointment = await turnModel.findOneBy({ id: id });
+     if(foundAppointment) {
+        foundAppointment.status = false;
+        await turnModel.save(foundAppointment);
+
+        return foundAppointment;
+     }
+
+    throw new Error("Appointment not found");
+  } catch (error) {
+    console.log(error);    
   }
-  return foundAppointment;
+
 };
