@@ -8,6 +8,8 @@ export class Turn {
     id: number;
     @Column()
     status: boolean;
+    @Column()
+    description: string;
     @ManyToOne(() => User, (user) => user.turns)
     user: User;
     @ManyToOne(() => Horario, (horario) =>horario.turns )

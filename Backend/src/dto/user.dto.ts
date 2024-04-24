@@ -14,6 +14,7 @@ export interface appoimentDto {
     dia: string ;
     time: Date;
     timeEnd: Date;
+    description: string;
     userId: number;
     status: boolean;
 }

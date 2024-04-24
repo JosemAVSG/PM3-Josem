@@ -23,10 +23,10 @@ export const GetAppointmentById = async (
 };
 
 export const CreateAppointment = async (appointment: appoimentDto):Promise<Turn | undefined> => {
-  const { dia, time, timeEnd, userId, status } = appointment;
+  const { dia, time, timeEnd, userId, status, description } = appointment;
   try {
     //creamos turno
-    const createAppointment = turnModel.create({ status });
+    const createAppointment = turnModel.create({ status, description });
     const newAppointment: Turn | undefined = await turnModel.save(createAppointment);
 
     const user = await userModel.findOneBy({ id: userId });
