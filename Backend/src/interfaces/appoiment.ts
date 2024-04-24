@@ -1,7 +1,7 @@
 
 export interface IAppointment  {
     id: number
-    dias: string
+    date: string
     time: Date
     timeEnd: Date
     status: boolean

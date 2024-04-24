@@ -16,10 +16,16 @@ export const createHorario = async (turntime: horarioDto): Promise<Horario | und
             date: date,
             time: time,
             timeEnd : timeEnd,
-            turns: turno,
         })
 
         await horarioModel.save(newHorario);
+
+        if(turno){
+            turno.horario = newHorario;
+            await turnModel.save(turno);
+        }else{
+            throw new Error('No se encontró el turno con el ID proporcionado');
+        }
 
         return newHorario;
     } catch (error) {

@@ -22,11 +22,11 @@ export class Historial {
     @Column()
     estadoNuevo: string;
 
-    @ManyToOne(() => User, user => user.historials)
-    user: User;
+    // @ManyToOne(() => User, user => user.historials)
+    // user: User;
 
-    @ManyToOne(() => Turn, turn => turn.historials)
-    turn: Turn;
+    // @ManyToOne(() => Turn, turn => turn.historials)
+    // turn: Turn;
 }
 
 

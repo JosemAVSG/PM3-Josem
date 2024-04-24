@@ -12,8 +12,8 @@ export class Turn {
     user: User;
     @ManyToOne(() => Horario, (horario) =>horario.turns )
     horario: Horario;
-    @OneToMany(() => Historial, historial => historial.turn)
-    historials: Historial[]; 
+    // @OneToMany(() => Historial, historial => historial.turn)
+    // historials: Historial[]; 
  
 }
 

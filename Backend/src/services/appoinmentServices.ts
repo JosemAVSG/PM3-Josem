@@ -1,8 +1,9 @@
 import { appoimentDto } from "../dto/user.dto";
 import { IAppointment } from "../interfaces/appoiment";
 import { Turn } from "../entities/turn";
-import { horarioModel, turnModel } from "../config/data-source";
+import { horarioModel, turnModel, userModel } from "../config/data-source";
 import { createHorario } from "./horarioServices";
+import { Horario } from "../entities/horario";
 
 const appointments: IAppointment[] = [];
 
@@ -21,26 +22,32 @@ export const GetAppointmentById = async (
   }
 };
 
-export const CreateAppointment = async (appointment: appoimentDto):Promise<Turn | void | undefined> => {
+export const CreateAppointment = async (appointment: appoimentDto):Promise<Turn | undefined> => {
   const { dia, time, timeEnd, userId, status } = appointment;
   try {
     //creamos turno
     const createAppointment = turnModel.create({ status });
-    const newAppointment = await turnModel.save(createAppointment);
+    const newAppointment: Turn | undefined = await turnModel.save(createAppointment);
 
-    const user = await turnModel.findOneBy({ id: userId });
-
+    const user = await userModel.findOneBy({ id: userId });
+    
     const horario: Horario | undefined = await createHorario({
-      dia,
-      time,
-      timeEnd,
+      date: dia,
+      time: time,
+      timeEnd: timeEnd,
+      idturn: newAppointment.id,
     });
 
-    if (user) {
-      newAppointment.user = user;
-      await turnModel.save(newAppointment);
+    if (user && horario) {
+      user.turns = [...user.turns, newAppointment];
+      horario.turns = [...horario.turns, newAppointment];
+      await userModel.save(user);
+      await horarioModel.save(horario);
+
+      return newAppointment;
     }
-    //creamos horario y asginamos a turno
+
+    throw new Error("User or horario not found");
   } catch (error) {
     console.log(error);
   }
