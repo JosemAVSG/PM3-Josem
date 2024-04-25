@@ -4,6 +4,8 @@ import { Turn } from "../entities/turn";
 import { horarioModel, turnModel, userModel } from "../config/data-source";
 import { createHorario } from "./horarioServices";
 import { Horario } from "../entities/horario";
+import { Historial } from "../entities/historial";
+import { addHistorialService } from "./historialServices";
 
 const appointments: IAppointment[] = [];
 
@@ -40,10 +42,14 @@ export const CreateAppointment = async (appointment: appoimentDto):Promise<Turn 
     });
 
     if (user && horario) {
+
       user.turns= [newAppointment];
       newAppointment.horario=horario;
+    
       await userModel.save(user);
       await horarioModel.save(horario);
+
+      const historial : Historial | undefined = await addHistorialService({ idturn: newAppointment.id} )
 
       return newAppointment;
     }

@@ -25,3 +25,6 @@ export interface horarioDto {
     idturn:number;
 }
 
+export interface historialDto{
+    idturn: number;
+}

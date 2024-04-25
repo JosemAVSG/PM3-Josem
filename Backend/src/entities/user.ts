@@ -23,7 +23,8 @@ export class User {
   credentials: Credentials;
   @OneToMany(() => Turn, turn => turn.user)
   turns: Turn[];
-  // @OneToMany(() => Historial, historial => historial.user)
-  // historials: Historial[];
+  @OneToOne(() => Historial)
+  @JoinColumn()
+  historial: Historial;
 }
 
