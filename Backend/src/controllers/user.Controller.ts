@@ -8,8 +8,12 @@ import { User } from "../entities/user";
 export const getUser = async (req: Request, res: Response) => {
   try {
     const users : User[] | undefined  = await getUsersService();
+    if(users === undefined){
+      res.status(404).json({message: "Users Not Found"});
+    }
     res.status(200).json(users);
   } catch (error) {
+    res.status(500).json(error);
     console.log(error);
   }
 };
@@ -20,18 +24,31 @@ export const getUserById = async (req: Request, res: Response) => {
     console.log(id);
 
     const user: User | null | undefined = await getUserByIdService(Number(id));
-
+    if(user === undefined){
+      res.status(404).json({message: "User Not Found"});
+    }
     res.status(200).json(user);
   } catch (error) {
+    res.status(500).json(error);
     console.log(error);
   }
 };
 
 export const createUser = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
+  try {
+    
+    const newUser: User | null = await createUserService({ name, email, password });
+    
+    if(!newUser){
+      res.status(404).json({message: "Los datos son Incorrectos"});
+    }
 
-  const newUser: User | null = await createUserService({ name, email, password });
-  res.status(201).json(newUser);
+    res.status(201).json(newUser);
+    
+  } catch (error) {
+    res.status(500).json(error);
+  }
 };
 
 export const updateUser = async () => {};

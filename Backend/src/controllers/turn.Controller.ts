@@ -1,28 +1,76 @@
 import { Request, Response } from "express";
-import { CreateAppointment, GetAllAppointments, cancelAppointment, GetAppointmentById } from "../services/appoinmentServices";
-
+import {
+  CreateAppointment,
+  GetAllAppointments,
+  cancelAppointment,
+  GetAppointmentById,
+} from "../services/appoinmentServices";
 
 export const createTurn = async (req: Request, res: Response) => {
+  const { dia, time, timeEnd, userId, description } = req.body;
 
-    const { dia, time, timeEnd, userId, description } = req.body;
+  try {
     const status = true;
-    const newTurn  =  await CreateAppointment({ dia, time, timeEnd,  userId , status, description });
+    const newTurn = await CreateAppointment({
+      dia,
+      time,
+      timeEnd,
+      userId,
+      status,
+      description,
+    });
+
+    if (!newTurn) {
+      res.status(404).json({ message: "No se Pudo Crear el Turno" });
+    }
     res.status(201).json(newTurn);
-}
+  } catch (error) {
+    res.status(500).json(error);
+    console.log(error);
+  }
+};
 
 export const getAllTurns = async (req: Request, res: Response) => {
-    const turns =  GetAllAppointments();
+  try {
+    const turns = await GetAllAppointments();
+    if (!turns) {
+      res.status(404).json({ message: "No se encontraron turnos" });
+    }
+
     res.status(200).json(turns);
-}
+  } catch (error) {
+    res.status(500).json(error);
+    console.log(error);
+  }
+};
 
 export const cancelTurn = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const turn = cancelAppointment(Number(id));
-    res.status(200).json(turn);
-}
+  const { id } = req.params;
+  try{
+      const turn = cancelAppointment(Number(id));
+      if(!turn){
+          res.status(404).json({message: "No se pudo cancelar el turno"});
+      }
+      res.status(200).json(turn);
+      
+  }catch (error){
+      res.status(500).json({message: "No se pudo cancelar el turno"});
+      console.log(error);
+    
+  }
+};
 
 export const getTurnById = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const turn = GetAppointmentById(Number(id));
-    res.status(200).json(turn);
-}
+  const { id } = req.params;
+
+    try {
+          const turn = GetAppointmentById(Number(id));
+          if(!turn){
+              res.status(404).json({message: "No se encontro el turno"});
+          }
+          res.status(200).json(turn);
+    } catch (error) {
+        res.status(500).json({message: "No se encontro el turno"});
+        console.log(error);
+    }
+};
