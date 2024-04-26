@@ -1,4 +1,4 @@
-import { userModel } from "../config/data-source";
+
 import { userDto } from "../dto/user.dto";
 import { IUser } from "../interfaces/user";
 import { User } from "../entities/user";
@@ -7,12 +7,13 @@ import {
   ValidateCredential,
   createCredentialService,
 } from "./credentialServices";
+import userRepository from "../repositories/userRepository";
 
 const user: IUser[] = [];
 
 export const getUsersService = async (): Promise<User[] | undefined> => {
   try {
-    const users : User[] | undefined = await userModel.find({
+    const users : User[] | undefined = await userRepository.find({
       relations: {
         credentials: true,
       },
@@ -26,7 +27,7 @@ export const getUserByIdService = async (
   id: number
 ): Promise<User | null | undefined> => {
   try {
-    const data : User | null = await userModel.findOneBy({ id: id });
+    const data : User | null = await userRepository.findOneBy({ id: id });
     return data;
   } catch (error) {
     console.log(error);
@@ -42,8 +43,8 @@ export const createUserService = async (newUser: userDto): Promise<User> => {
     birthdate: new Date(),
   };
 
-  const users =  userModel.create({...userCreated});
-  const data = await userModel.save(users);  
+  const users =  userRepository.create({...userCreated});
+  const data = await userRepository.save(users);  
   const credentials: Credentials | undefined = await createCredentialService({
     username: newUser.name,
     password: newUser.password,

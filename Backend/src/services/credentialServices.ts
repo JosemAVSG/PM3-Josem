@@ -1,4 +1,5 @@
-import { credentialModel, userModel } from "../config/data-source";
+import credentialRepository from "../repositories/credentialRepository";
+import userRepository from "../repositories/userRepository";
 import { credentialDto } from "../dto/user.dto";
 import { Credentials } from "../entities/credential";
 import { ICredential } from "../interfaces/credential";
@@ -11,15 +12,15 @@ export const createCredentialService = async ( credentiales: credentialDto ) : P
         const { username, password, userId } = credentiales;
          
 
-        const user = await userModel.findOneBy({ id: userId });
+        const user = await userRepository.findOneBy({ id: userId });
 
-        const newCredential = credentialModel.create({ username, password , id: userId });
-        await credentialModel.save(newCredential);
+        const newCredential = credentialRepository.create({ username, password , id: userId });
+        await credentialRepository.save(newCredential);
       
         if (user){
             user.credentials = newCredential
 
-            await userModel.save(user);
+            await userRepository.save(user);
 
             return newCredential;
         }else{
