@@ -2,12 +2,12 @@ import { Router } from "express";
 import { createTurn, getAllTurns, cancelTurn, getTurnById } from "../controllers/turn.Controller";
 const router = Router();
 
-router.get('/appointments', getAllTurns )
-router.get('/appointment/:id', getTurnById );
+router.get('/turns', getAllTurns )
+router.get('/turn/:id', getTurnById );
 
-router.post('/appointment/schedule', createTurn );
-router.put('/appointment/cancel', cancelTurn );
-router.put('/appointment/reschedule', );
+router.post('/turn/schedule', createTurn );
+router.put('/turn/cancel', cancelTurn );
+router.put('/turn/reschedule', );
 
 
 

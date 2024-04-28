@@ -10,6 +10,11 @@ export interface userDto {
     email: string;
     password: string;
 }
+
+export interface loginDto{
+    email: string;
+    password: string;
+}
 export interface appoimentDto {
     dia: string ;
     time: Date;

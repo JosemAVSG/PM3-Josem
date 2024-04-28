@@ -1,5 +1,5 @@
 
-import { userDto } from "../dto/user.dto";
+import { loginDto, userDto } from "../dto/user.dto";
 import { IUser } from "../interfaces/user";
 import { User } from "../entities/user";
 import { Credentials } from "../entities/credential";
@@ -59,16 +59,11 @@ export const createUserService = async (newUser: userDto): Promise<User> => {
 
 };
 
-// export const loginUserService = async (login: userDto): Promise<IUser> => {
+export const loginUserService = async (login: loginDto): Promise<User | undefined> => {
+      const { email, password } = login;
 
-//   const credentials = await ValidateCredential({
-//     username: login.name,
-//     password: login.password,
-//     userId:1
-//   });
-//   const userFound = user.find((user) => user.credentialsId === credentials);
-//   if (!userFound) {
-//     throw new Error("User not found");
-//   }
-//   return userFound;
-// };
+  const userVerified : User | undefined = await ValidateCredential({email, password});
+
+  return userVerified;
+
+};
