@@ -45,7 +45,7 @@ export const createUserService = async (newUser: userDto): Promise<User> => {
 
   const users =  userRepository.create({...userCreated});
   const data = await userRepository.save(users);  
-  const credentials: Credentials | undefined = await createCredentialService({
+  const credentials: Credentials | void = await createCredentialService({
     username: newUser.name,
     password: newUser.password,
     userId: data.id, 

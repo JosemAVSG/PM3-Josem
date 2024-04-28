@@ -8,7 +8,7 @@ import { User } from "../entities/user";
 
 const credentials: ICredential[] = [];
 
-export const createCredentialService = async ( credentiales: credentialDto ) : Promise<Credentials | undefined >  => {
+export const createCredentialService = async ( credentiales: credentialDto ) : Promise<Credentials | void >  => {
     const { username, password, userId } = credentiales;
      const queryRunner =  AppDataSource.createQueryRunner();
     await queryRunner.connect();
@@ -16,7 +16,7 @@ export const createCredentialService = async ( credentiales: credentialDto ) : P
            
         queryRunner.startTransaction();
 
-        const user = await userRepository.findOneBy({ id: userId });
+        const user = await userRepository.findById(userId);
 
         const newCredential = credentialRepository.create({ username, password , id: userId });
         await queryRunner.manager.save(newCredential);
