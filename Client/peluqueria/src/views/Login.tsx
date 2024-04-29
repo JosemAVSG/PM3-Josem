@@ -14,7 +14,7 @@ const Login: React.FC = () => {
           <form method="post" action="#" className={style.login}>
             <div className={style.form_group}>
               <FontAwesomeIcon icon={faEnvelope} className={style.icon} />
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email" className={style.label}>Email</label>
               <input type="email" className={style.input} id="email" required  />
             </div>
             <div className={`${style.form_group} form_group `}>
@@ -23,8 +23,11 @@ const Login: React.FC = () => {
               <input type="password" className={style.input} id="password" required />
             </div>
             <div className={style.remember}>
+              <div >
+
               <input type="checkbox" id="remember" />
               <label htmlFor="remember">Remember me</label>
+              </div>
               <a href="#"> Forgot password?</a>
             </div>
             <button type="submit" className={style.btn}>
