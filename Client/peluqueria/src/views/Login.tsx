@@ -2,6 +2,7 @@ import React from "react";
 import style from "../styles/login.module.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
 const Login: React.FC = () => {
 
  
@@ -34,7 +35,7 @@ const Login: React.FC = () => {
               Login
             </button>
             <div className={style.register}>
-              <p>Don't have an account? <a href="#">Register</a></p>
+              <p>Don't have an account? <Link to="/register" >Register</Link></p>
             </div>
           </form>
         </div>
