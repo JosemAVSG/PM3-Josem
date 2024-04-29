@@ -1,7 +1,8 @@
 :root{
     --text-color:#B7F4E9;
     --background-button:#141B1F;
-
+    --background-herro:#215368;
+    --background-button2:var(--text-color);
 }
 
 .hero{
@@ -17,11 +18,11 @@
 .hero_image{
     display: flex;
     position: absolute;
-    right: 100px;
+    right: 90px;
     z-index: -1;
     background-color: #141B1F;
     width:40%;
-    height: 98%;
+    height: 100%;
 }
 .hero_text{
     display: flex;
@@ -29,7 +30,7 @@
     justify-content: center;
     align-items: start;
     color: var(--text-color);
-    background-color: var(--background-button);
+    background-color: #021b25;
     overflow: hidden;
 
     padding: 20px;
@@ -53,7 +54,8 @@
 .hero_button{
     margin-top: 1rem;
     padding: 10px;
-    background-color: var(--background-button);
+    font-size: bold;
+    background-color: #215368;
     color: var(--text-color);
     border-radius: 5px;
     cursor: pointer;
@@ -63,6 +65,6 @@
 .hero_button:hover{
     background-color: #358f8f;
     & a{
-        color:#141B1F;
+        color:#e7e7e7;
     }
 }

@@ -5,7 +5,7 @@
     padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: #141B1F;
+    background-color: #021b25;;
 }
 .logo{
     display: flex;
@@ -13,13 +13,31 @@
     justify-content: space-between;
     font-size: 1.5rem;
     margin: 10px;
-    padding: 0;
+    padding-left : 20px;
     list-style: none;
 }
 .links{
     display: flex;
     gap: 20px;
     align-items: center;
+    font-size: 18px;
     list-style: none;
+    padding-right: 50px;
+}
 
+.link_login{
+    padding: 5px;
+    font-size: bold;
+    background-color: #215368;
+    color: var(--text-color);
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    width: 5rem;
+}
+.link_login:hover{
+    background-color: #358f8f;
+    & a{
+        color:#e7e7e7;
+    }
 }
