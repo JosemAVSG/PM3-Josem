@@ -1,0 +1,64 @@
+:root{
+    --text-color:#B7F4E9;
+    --background-button:#141B1F;
+
+}
+
+.hero{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+}
+.hero_image{
+    display: flex;
+    position: absolute;
+    right: 100px;
+    z-index: -1;
+    background-color: #141B1F;
+    width:40%;
+    height: 100%;
+}
+.hero_text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    color: var(--text-color);
+    background-color: #121414;
+    overflow: hidden;
+
+    padding: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-align: left;
+    width: 60%;
+    height: 94%;
+    clip-path:polygon(0 0, 80% 0, 100% 100%, 0 100%);
+    
+}
+
+.hero_title{
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+.hero_paragraph{
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    width: 80%;
+}
+.hero_button{
+    margin-top: 1rem;
+    padding: 10px;
+    background-color: var(--background-button);
+    color: var(--text-color);
+    border-radius: 5px;
+    cursor: pointer;
+    width: 60%;
+    text-align: center;
+}
+.hero_button:hover{
+    background-color: #358f8f;
+    & a{
+        color:#141B1F;
+    }
+}
