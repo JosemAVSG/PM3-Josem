@@ -6,7 +6,7 @@ const Home: React.FC = () => {
   return (
     <>
       <section className={styles.hero}>
-     
+     <div className={styles.hero_container}>
         <div className={styles.hero_text}>
           <div className={styles.hero_title}>
             <h1> Bienvenidos a BarberBay!</h1>
@@ -32,6 +32,7 @@ const Home: React.FC = () => {
         <div className={styles.hero_image}>
           <img src={hero} alt="hero-image" />  
          </div>
+     </div>
       </section>
     </>
   );
