@@ -18,7 +18,9 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.3",
     "react-router-dom": "^6.23.0",
-    "sass": "^1.75.0"
+    "sass": "^1.75.0",
+    "react-redux": "^8.0.5",
+    "@reduxjs/toolkit": "^1.9.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
