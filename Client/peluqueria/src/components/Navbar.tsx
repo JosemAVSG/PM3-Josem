@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
           <NavLink to="/" className="nav-link">
             Home
           </NavLink>
-          <NavLink to="/turnos" className="nav-link">
+          <NavLink to="/turns" className="nav-link">
             Mis Turnos
           </NavLink>
           <NavLink to="/register" className="nav-link">
