@@ -1,4 +1,4 @@
-import { PayloadAction } from "@reduxjs/toolkit";
+
 const initialState = {
   isAuthenticated: false,
   user: null,
@@ -6,7 +6,8 @@ const initialState = {
   loading: true,
 };
 
-const authReducer = (state = initialState, action:PayloadAction) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const authReducer = (state = initialState, action:any) => {
   switch (action.type) {
     case "SET_AUTHENTICATION":
       return {
