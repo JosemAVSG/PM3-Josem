@@ -36,10 +36,11 @@ export const getUserById = async (req: Request, res: Response) => {
 };
 
 export const createUser = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
+  
+  const { name, email, birthdate,nDni, credentials:{ username, password } } = req.body;
   try {
     
-    const newUser: User | null = await createUserService({ name, email, password });
+    const newUser: User | null = await createUserService({ name, email, birthdate ,nDni,  username, password  });
     
     if(!newUser){
       res.status(404).json({message: "Los datos son Incorrectos"});

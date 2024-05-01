@@ -1,9 +1,15 @@
 export interface IUser {
-    id: number;
+
     name: string;
     email: string;
     birthdate: Date;
     nDni: number;
-    image: string;
-    credentialsId: number;
+    credentials: {
+        username: string;
+        password: string;
+    };
+}
+export interface IUserLogin {
+    email: string;
+    password: string;
 }

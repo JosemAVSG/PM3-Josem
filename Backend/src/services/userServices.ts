@@ -38,15 +38,15 @@ export const createUserService = async (newUser: userDto): Promise<User> => {
   const userCreated = {
     name: newUser.name,
     email: newUser.email,
-    nDni: 0,
+    nDni: newUser.nDni,
     image: "",
-    birthdate: new Date(),
+    birthdate: new Date(newUser.birthdate),
   };
 
   const users =  userRepository.create({...userCreated});
   const data = await userRepository.save(users);  
   const credentials: Credentials | void = await createCredentialService({
-    username: newUser.name,
+    username: newUser.username,
     password: newUser.password,
     userId: data.id, 
   });

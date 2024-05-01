@@ -7,8 +7,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import style from "../styles/register.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { signupUser } from "../reducers/authSlice";
+import { IUser } from "../types/user.interface";
 
-type IRegister = {
+interface IRegister {
   FullName: string;
   email: string;
   birthday: Date;
@@ -16,14 +21,34 @@ type IRegister = {
   username: string;
   password: string;
   remember: boolean;
-};
+}
 const Register = () => {
+  const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm<IRegister>();
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  // const registerError=useAppSelector((state) => state.auth.errors);
+  const navigation = useNavigate();
 
   const onSubmit: SubmitHandler<IRegister> = (data) => {
-    console.log(data);
+    const { FullName, email, birthday, dni, username, password } = data;
+    const registro: IUser = {
+      name: FullName,
+      email,
+      birthdate: birthday,
+      nDni: dni,
+      credentials: {
+        username,
+        password: password,
+      },
+    };
+    dispatch(signupUser(registro));
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigation("/");
+    }
+  }, [isAuthenticated]);
   return (
     <>
       <div className={style.wrapper}>
@@ -107,7 +132,13 @@ const Register = () => {
               />
             </div>
             <div className={style.remember}>
-              <input type="checkbox" id="remember" required autoFocus  {...register("remember", { required: true })} />
+              <input
+                type="checkbox"
+                id="remember"
+                required
+                autoFocus
+                {...register("remember", { required: true })}
+              />
               <label htmlFor="remember">
                 I agree with terms and conditions
               </label>
