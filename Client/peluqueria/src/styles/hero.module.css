@@ -21,7 +21,7 @@
     position: absolute;
     right: 0;
     z-index: -1;
-    background-color: #141B1F;
+    /* background-color: #141B1F; */
     height: 100%;
    
 }
@@ -76,3 +76,4 @@
         color:#e7e7e7;
     }
 }
+

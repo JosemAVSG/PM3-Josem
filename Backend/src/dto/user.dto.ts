@@ -16,7 +16,7 @@ export interface userDto {
 }
 
 export interface loginDto{
-    email: string;
+    username: string;
     password: string;
 }
 export interface appoimentDto {

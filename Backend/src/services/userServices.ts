@@ -45,6 +45,7 @@ export const createUserService = async (newUser: userDto): Promise<User> => {
 
   const users =  userRepository.create({...userCreated});
   const data = await userRepository.save(users);  
+
   const credentials: Credentials | void = await createCredentialService({
     username: newUser.username,
     password: newUser.password,
@@ -60,9 +61,9 @@ export const createUserService = async (newUser: userDto): Promise<User> => {
 };
 
 export const loginUserService = async (login: loginDto): Promise<User | undefined> => {
-      const { email, password } = login;
+      const { username, password } = login;
 
-  const userVerified : User | undefined = await ValidateCredential({email, password});
+  const userVerified : User | undefined = await ValidateCredential({username, password});
 
   return userVerified;
 

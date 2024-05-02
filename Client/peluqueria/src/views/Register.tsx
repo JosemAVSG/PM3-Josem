@@ -22,7 +22,7 @@ interface IRegister {
   password: string;
   remember: boolean;
 }
-const Register = () => {
+const Register : React.FC = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm<IRegister>();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
@@ -48,7 +48,10 @@ const Register = () => {
     if (isAuthenticated) {
       navigation("/");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated,navigation]);
+
+
+
   return (
     <>
       <div className={style.wrapper}>

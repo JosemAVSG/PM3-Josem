@@ -5,59 +5,74 @@ import { Credentials } from "../entities/credential";
 import { ICredential } from "../interfaces/credential";
 import { AppDataSource } from "../config/data-source";
 import { User } from "../entities/user";
+import { hash, isValidPassword } from "../helpers/hash";
 
-const credentials: ICredential[] = [];
+// const credentials: ICredential[] = [];
 
-export const createCredentialService = async ( credentiales: credentialDto ) : Promise<Credentials | void >  => {
-    const { username, password, userId } = credentiales;
-     const queryRunner =  AppDataSource.createQueryRunner();
-    await queryRunner.connect();
-    try {
-           
-        queryRunner.startTransaction();
+export const createCredentialService = async (  credentiales: credentialDto): Promise<Credentials | void> => {
+  const { username, password, userId } = credentiales;
+  const queryRunner = AppDataSource.createQueryRunner();
+  await queryRunner.connect();
+  try {
+    queryRunner.startTransaction();
 
-        const user = await userRepository.findById(userId);
+    const user = await userRepository.findById(userId);
+    const passwordhashed = await hash(password);
 
-        const newCredential = credentialRepository.create({ username, password , id: userId });
-        await queryRunner.manager.save(newCredential);
-      
-        if (user){
-            user.credentials = newCredential
-            await queryRunner.manager.save(user);
+    const newCredential = credentialRepository.create({
+      username,
+      password: passwordhashed,
+      id: userId,
+    });
+    await queryRunner.manager.save(newCredential);
 
-            await queryRunner.commitTransaction();
+    if (user) {
+      user.credentials = newCredential;
+      await queryRunner.manager.save(user);
+    
+      await queryRunner.commitTransaction();
 
-            return newCredential;
-        }else{
-            throw new Error("User not found");
-        }
-    } catch (error) {
-        await queryRunner.rollbackTransaction();
-        throw Error("Error:" + error);
-    }finally{
-        await queryRunner.release();
+      return newCredential;
+    } else {
+      throw new Error("User not found");
     }
-
-};
-
-export const ValidateCredential = async ( credentiales: loginDto) : Promise<User | undefined> => {
-        const {email, password} = credentiales;
-
-   try {
-    const findUser = await userRepository.findOneBy({email: email});
-    if(!findUser){
-        throw new Error("User not found");
-    }
-    const credentials =  findUser.credentials;
-
-    if(credentials && credentials.password === password){
-        return findUser;
-    } 
-   } catch (error) {
+  } catch (error) {
+    await queryRunner.rollbackTransaction();
     throw Error("Error:" + error);
-   } 
-
+  } finally {
+    await queryRunner.release();
+  }
 };
 
+export const ValidateCredential = async (
+  credentiales: loginDto
+): Promise<User | undefined> => {
+  const { username, password } = credentiales;
 
+  try {
+    const foundcredentials = await credentialRepository.findOneBy({
+      username: username,
+    });
+    if (!foundcredentials) {
+      throw new Error("Credentials not found");
+    }
+    
 
+    const { id } = foundcredentials;
+    const findUser = await userRepository.findOneBy({ id: id });
+    if (!findUser) {
+      throw new Error("User not found");
+    }
+    const credentials = findUser.credentials;
+
+    const truePassword = await isValidPassword(password, credentials.password);
+  
+    if (credentials && truePassword === true) {
+      return findUser;
+    }else{
+      throw new Error("Password not valid");
+    }
+  } catch (error) {
+    throw Error("Error:" + error);
+  }
+};
