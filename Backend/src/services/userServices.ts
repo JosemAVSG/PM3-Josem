@@ -12,6 +12,7 @@ import userRepository from "../repositories/userRepository";
 const user: IUser[] = [];
 
 export const getUsersService = async (): Promise<User[] | undefined> => {
+
   try {
     const users : User[] | undefined = await userRepository.find({
       relations: {
@@ -34,37 +35,51 @@ export const getUserByIdService = async (
   }
 };
 
-export const createUserService = async (newUser: userDto): Promise<User> => {
-  const userCreated = {
-    name: newUser.name,
-    email: newUser.email,
-    nDni: newUser.nDni,
-    image: "",
-    birthdate: new Date(newUser.birthdate),
-  };
+export const createUserService = async (newUser: userDto): Promise<User | undefined> => {
+ 
+  try{
+    const userCreated = {
+      name: newUser.name,
+      email: newUser.email,
+      nDni: newUser.nDni,
+      image: "",
+      birthdate: new Date(newUser.birthdate),
+    };
+  
+    const users =  userRepository.create({...userCreated});
+    const data = await userRepository.save(users);  
+  
+    const credentials: Credentials | void = await createCredentialService({
+      username: newUser.username,
+      password: newUser.password,
+      userId: data.id, 
+    });
+  
+    if(!credentials){
+      throw new Error("Credentials not created");
+    }
+  
+    return data;
 
-  const users =  userRepository.create({...userCreated});
-  const data = await userRepository.save(users);  
 
-  const credentials: Credentials | void = await createCredentialService({
-    username: newUser.username,
-    password: newUser.password,
-    userId: data.id, 
-  });
-
-  if(!credentials){
-    throw new Error("Credentials not created");
+  }catch(error){
+    console.log(error);
   }
-
-  return data;
+  
 
 };
 
-export const loginUserService = async (login: loginDto): Promise<User | undefined> => {
+export const loginUserService = async (login: loginDto): Promise<User  |  Error> => {
       const { username, password } = login;
-  
-  const userVerified : User | undefined = await ValidateCredential({username, password});
+  try {
+    const userVerified : User | undefined = await ValidateCredential({username, password});
+    if(!userVerified){
+      throw new Error("User not found");
+    }
+    return userVerified;
+  } catch (error) {
+    return  new Error("User not found");
+  }
 
-  return userVerified;
 
 };

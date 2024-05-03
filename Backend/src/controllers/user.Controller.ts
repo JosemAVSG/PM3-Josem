@@ -10,6 +10,7 @@ import { User } from "../entities/user";
 import { createAccessToken } from "../utils/jwt";
 import { TOKEN_SECRET } from "../config/env";
 import jwt from "jsonwebtoken";
+import { error } from "console";
 export const getUser = async (req: Request, res: Response) => {
   try {
     const users: User[] | undefined = await getUsersService();
@@ -49,7 +50,7 @@ export const createUser = async (req: Request, res: Response) => {
   } = req.body;
  
   try {
-    const newUser: User | null = await createUserService({
+    const newUser = await createUserService({
       name,
       email,
       birthdate,
@@ -58,12 +59,13 @@ export const createUser = async (req: Request, res: Response) => {
       password,
     });
 
-    if (!newUser) {
+    if(newUser){
+      const tokenAccess = await createAccessToken({ id: newUser.id });
+      res.cookie("token", tokenAccess);
+      res.status(201).json(newUser);
+    }else{
       res.status(404).json({ message: "Los datos son Incorrectos" });
     }
-    const tokenAccess = await createAccessToken({ id: newUser.id });
-    res.cookie("token", tokenAccess);
-    res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -77,13 +79,13 @@ export const loginUser = async (req: Request, res: Response) => {
     const user = await ValidateCredential({username, password});
 
     
-    if(!user){
-      
+    if(user){
+      const tokenAccess = await createAccessToken({ id: user.id });
+      res.cookie("token", tokenAccess);
+      res.status(200).json({login:true, user});
+    }else{
       throw new Error("User Not Found");
     }
-    const tokenAccess = await createAccessToken({ id: user?.id });
-    res.cookie("token", tokenAccess);
-    res.status(200).json({login:true, user});
   } catch {
     res.status(404).json({ message: "User Not Found" });
   }
