@@ -48,29 +48,37 @@ export const ValidateCredential = async (
   credentiales: loginDto
 ): Promise<User | undefined> => {
   const { username, password } = credentiales;
-
+  
+  
   try {
     const foundcredentials = await credentialRepository.findOneBy({
       username: username,
     });
+   
+    
     if (!foundcredentials) {
       throw new Error("Credentials not found");
     }
-    
-
     const { id } = foundcredentials;
-    const findUser = await userRepository.findOneBy({ id: id });
+    const findUser = await userRepository.find({
+      where: { credentials: { id: id } },
+      relations: { credentials: true },})
+    console.log(findUser.map((user) => user));
+    
     if (!findUser) {
       throw new Error("User not found");
     }
-    const credentials = findUser.credentials;
-
+    const credentials = findUser[0].credentials;
+     console.log("credenciales", credentials);
+      
     const truePassword = await isValidPassword(password, credentials.password);
-  
-    if (credentials && truePassword === true) {
-      return findUser;
-    }else{
+   
+    console.log(truePassword);
+    
+    if (truePassword === false ) {
       throw new Error("Password not valid");
+    }else{
+      return findUser[0];
     }
   } catch (error) {
     throw Error("Error:" + error);

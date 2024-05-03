@@ -27,7 +27,7 @@ export const getUserByIdService = async (
   id: number
 ): Promise<User | null | undefined> => {
   try {
-    const data : User | null = await userRepository.findOneBy({ id: id });
+    const data : User | null = await userRepository.findOneBy({  id: id });
     return data;
   } catch (error) {
     console.log(error);
@@ -62,7 +62,7 @@ export const createUserService = async (newUser: userDto): Promise<User> => {
 
 export const loginUserService = async (login: loginDto): Promise<User | undefined> => {
       const { username, password } = login;
-
+  
   const userVerified : User | undefined = await ValidateCredential({username, password});
 
   return userVerified;

@@ -36,18 +36,18 @@ const Login: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)} className={style.login}>
             <div className={style.form_group}>
               <FontAwesomeIcon icon={faEnvelope} className={style.icon} />
-              <label htmlFor="email" className={style.label}>
-                Email
+              <label htmlFor="username" className={style.label}>
+                Username
               </label>
               <input
-                type="email"
+                type="text"
                 className={style.input}
-                id="email"
+                id="username"
                 required
-                {...register("email", { required: "Email is required" })}
+                {...register("username", { required: "username is required" })}
               />
 
-              {errors.email && <p>{errors.email.message}</p>}
+              {errors.username && <p>{errors.username.message}</p>}
             </div>
             <div className={`${style.form_group} form_group `}>
               <FontAwesomeIcon icon={faLock} className={style.icon} />

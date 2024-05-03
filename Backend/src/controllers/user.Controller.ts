@@ -5,8 +5,11 @@ import {
   getUsersService,
   loginUserService,
 } from "../services/userServices";
+import { ValidateCredential } from "../services/credentialServices";
 import { User } from "../entities/user";
 import { createAccessToken } from "../utils/jwt";
+import { TOKEN_SECRET } from "../config/env";
+import jwt from "jsonwebtoken";
 export const getUser = async (req: Request, res: Response) => {
   try {
     const users: User[] | undefined = await getUsersService();
@@ -44,6 +47,7 @@ export const createUser = async (req: Request, res: Response) => {
     nDni,
     credentials: { username, password },
   } = req.body;
+ 
   try {
     const newUser: User | null = await createUserService({
       name,
@@ -58,7 +62,7 @@ export const createUser = async (req: Request, res: Response) => {
       res.status(404).json({ message: "Los datos son Incorrectos" });
     }
     const tokenAccess = await createAccessToken({ id: newUser.id });
-    res.cookie("token", tokenAccess, { httpOnly: true });
+    res.cookie("token", tokenAccess);
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json(error);
@@ -67,17 +71,45 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const loginUser = async (req: Request, res: Response) => {
   const { username, password } = req.body;
+ 
+  
   try {
-    const user = await loginUserService({ username, password });
+    const user = await ValidateCredential({username, password});
+
+    
     if(!user){
+      
       throw new Error("User Not Found");
     }
     const tokenAccess = await createAccessToken({ id: user?.id });
-    res.cookie("token", tokenAccess, { httpOnly: true });
-    res.status(200).json(user);
+    res.cookie("token", tokenAccess);
+    res.status(200).json({login:true, user});
   } catch {
     res.status(404).json({ message: "User Not Found" });
   }
 };
+
+
+export const verifyToken = async (req: Request, res: Response) => {
+    
+  // const token = Array.isArray(req.headers['token']) ? req.headers['token'][0] : req.headers['token'];
+  const {token} = req.cookies;
+
+    console.log("token:", token);
+    
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+  
+    try {
+      const payload = jwt.verify(token, TOKEN_SECRET);
+      
+      return res.status(200).json({ message: "Authorized" });
+      // Rest of your code
+    } catch {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+  };
+
 export const updateUser = async () => {};
 export const deleteUser = async () => {};

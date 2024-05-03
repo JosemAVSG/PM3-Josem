@@ -46,7 +46,7 @@ const Register : React.FC = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigation("/");
+      navigation("/turns");
     }
   }, [isAuthenticated,navigation]);
 
