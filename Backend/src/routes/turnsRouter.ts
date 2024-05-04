@@ -3,11 +3,11 @@ import { createTurn, getAllTurns, cancelTurn, getTurnById } from "../controllers
 import { authVerifyToken } from "../middlewares/validataToken";
 const router = Router();
 
-router.get('/turns', authVerifyToken , getAllTurns )
-router.get('/turn/:id', authVerifyToken , getTurnById );
+router.get('/turns' , getAllTurns )
+router.get('/turns/:id', getTurnById );
 
-router.post('/turn/schedule', authVerifyToken  , createTurn );
-router.put('/turn/cancel', authVerifyToken , cancelTurn );
+router.post('/turns/schedule', createTurn );
+router.put('/turns/cancel', authVerifyToken , cancelTurn );
 // router.put('/turn/reschedule', );
 
 

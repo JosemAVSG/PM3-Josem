@@ -4,12 +4,14 @@ import { loginRequest, registerRequest } from '../api/auth';
 import { IUser, IUserLogin } from "../types/user.interface";
 import { verifyToken } from "../api/auth";
 import Cookie from 'js-cookie';
+// import { ITurn } from "../types/turn.interface";
+import {  getTurns } from "../api/turn";
 const initialState = {
   isAuthenticated: false,
   user:null,
-  errors: [],
+  errors: null,
   loading: true,
-
+  userTurns:[], 
 };
 
 
@@ -19,10 +21,22 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    gettingTurns(state, action) {
+      return {
+        ...state,
+        userTurns: action.payload
+      }
+    },
     Loading(state, action) {
       return {
         ...state,
         loading: action.payload,
+      };
+    },
+    setError(state, action) {
+      return {
+        ...state,
+        errors: action.payload,
       };
     },
     Authentication(state, action) {
@@ -121,6 +135,17 @@ export const signupUser = (userData: IUser) : AppThunk => {
   
   };
 
-export const { RegisterSucces, LoginSucces, LoginFail, RegisterFail, Loading, Authentication, User } = authSlice.actions;
+  export const turnsAction = (): AppThunk => {
+    return async (dispatch) => {
+      try {    
+        const res   = await getTurns();
+        dispatch(gettingTurns(res.data));
+      } catch (error) {
+          dispatch(setError(error as Error)); 
+      }
+    }
+  }
+
+export const { RegisterSucces, setError, LoginSucces, LoginFail, RegisterFail, Loading, Authentication, User, gettingTurns } = authSlice.actions;
 export default authSlice.reducer
 

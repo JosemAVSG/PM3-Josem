@@ -5,10 +5,10 @@ import {
   cancelAppointment,
   GetAppointmentById,
 } from "../services/appoinmentServices";
+import { log } from "console";
 
 export const createTurn = async (req: Request, res: Response) => {
   const { dia, time, timeEnd, userId, description } = req.body;
-
   try {
     const status = true;
     const newTurn = await CreateAppointment({
@@ -21,11 +21,11 @@ export const createTurn = async (req: Request, res: Response) => {
     });
 
     if (!newTurn) {
-      res.status(404).json({ message: "No se Pudo Crear el Turno" });
+      throw new Error("No se Pudo Crear el Turno");
     }
     res.status(201).json(newTurn);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(404).json(error);
     console.log(error);
   }
 };
@@ -33,13 +33,12 @@ export const createTurn = async (req: Request, res: Response) => {
 export const getAllTurns = async (req: Request, res: Response) => {
   try {
     const turns = await GetAllAppointments();
-    if (!turns) {
-      res.status(404).json({ message: "No se encontraron turnos" });
+    if(!turns){
+        throw new Error('No se encontraron turnos');
     }
-
     res.status(200).json(turns);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(404).json(error);
     console.log(error);
   }
 };
@@ -49,12 +48,12 @@ export const cancelTurn = async (req: Request, res: Response) => {
   try{
       const turn = cancelAppointment(Number(id));
       if(!turn){
-          res.status(404).json({message: "No se pudo cancelar el turno"});
+          throw new Error('No se pudo cancelar el turno');
       }
       res.status(200).json(turn);
       
   }catch (error){
-      res.status(500).json({message: "No se pudo cancelar el turno"});
+      res.status(404).json(error);
       console.log(error);
     
   }
@@ -66,11 +65,11 @@ export const getTurnById = async (req: Request, res: Response) => {
     try {
           const turn = GetAppointmentById(Number(id));
           if(!turn){
-              res.status(404).json({message: "No se encontro el turno"});
+             throw new Error('No se encontro el turno');
           }
           res.status(200).json(turn);
     } catch (error) {
-        res.status(500).json({message: "No se encontro el turno"});
+        res.status(404).json(error);
         console.log(error);
     }
 };

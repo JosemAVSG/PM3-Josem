@@ -1,6 +1,6 @@
 import { ITurn } from "../types/turn.interface";
 
-export const turns: ITurn[] =[
+export const turnos: ITurn[] =[
             {
                 id: 1,
                 name: "Turno 1",
