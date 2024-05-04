@@ -1,4 +1,4 @@
-import { ITurn } from "../types/turn.d";
+import { ITurn } from "../types/turn.interface";
 
 export const turns: ITurn[] =[
             {

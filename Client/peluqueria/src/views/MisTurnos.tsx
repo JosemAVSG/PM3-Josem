@@ -1,7 +1,7 @@
 import { turns } from "../helpers/misturnos";
 import { useEffect, useState } from "react";
 import Turn from "../components/Turn";
-import { ITurn } from "../types/turn.d";
+import { ITurn } from "../types/turn.interface";
 const MisTurnos = () => {
 
 
