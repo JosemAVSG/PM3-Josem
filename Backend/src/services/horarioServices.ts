@@ -5,7 +5,6 @@ import turnRepository from "../repositories/turnRepository";
 import {AppDataSource} from "../config/data-source";
 export const createHorarioService = async (turntime: horarioDto): Promise<Horario | undefined> => {
   const { date, time, timeEnd, idturn } = turntime;
-  console.log("horario service  :", date, time, timeEnd, idturn);
      const queryRunner = AppDataSource.createQueryRunner();
      await queryRunner.connect();
     try {
@@ -14,7 +13,7 @@ export const createHorarioService = async (turntime: horarioDto): Promise<Horari
         // Crear y guardar el horario asociado al turno
         const timein = new Date(time);
         const timeout = new Date(timeEnd);
-        console.log(timein, timeout);
+       
         
         const newHorario = horarioRepository.create({
             date: date,
