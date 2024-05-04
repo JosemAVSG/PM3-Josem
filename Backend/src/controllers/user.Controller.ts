@@ -10,7 +10,7 @@ import { User } from "../entities/user";
 import { createAccessToken } from "../utils/jwt";
 import { TOKEN_SECRET } from "../config/env";
 import jwt from "jsonwebtoken";
-import { error } from "console";
+import { IPayload } from "../middlewares/validataToken";
 export const getUser = async (req: Request, res: Response) => {
   try {
     const users: User[] | undefined = await getUsersService();
@@ -27,7 +27,6 @@ export const getUser = async (req: Request, res: Response) => {
 export const getUserById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    console.log(id);
 
     const user: User | null | undefined = await getUserByIdService(Number(id));
     if (user === undefined) {
@@ -97,16 +96,16 @@ export const verifyToken = async (req: Request, res: Response) => {
   // const token = Array.isArray(req.headers['token']) ? req.headers['token'][0] : req.headers['token'];
   const {token} = req.cookies;
 
-    console.log("token:", token);
+   
     
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
     }
   
     try {
-      const payload = jwt.verify(token, TOKEN_SECRET);
-      
-      return res.status(200).json({ message: "Authorized" });
+      const payload =  jwt.verify(token, TOKEN_SECRET) as IPayload;
+
+      return res.status(200).json({ message: "Authorized", payload});
       // Rest of your code
     } catch {
       return res.status(401).json({ message: "Unauthorized" });

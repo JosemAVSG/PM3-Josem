@@ -4,6 +4,7 @@ import {
   GetAllAppointments,
   cancelAppointment,
   GetAppointmentById,
+  GetAppointmentByUserId,
 } from "../services/appoinmentServices";
 import { log } from "console";
 
@@ -33,8 +34,8 @@ export const createTurn = async (req: Request, res: Response) => {
 export const getAllTurns = async (req: Request, res: Response) => {
   try {
     const turns = await GetAllAppointments();
-    if(!turns){
-        throw new Error('No se encontraron turnos');
+    if (!turns) {
+      throw new Error("No se encontraron turnos");
     }
     res.status(200).json(turns);
   } catch (error) {
@@ -45,31 +46,43 @@ export const getAllTurns = async (req: Request, res: Response) => {
 
 export const cancelTurn = async (req: Request, res: Response) => {
   const { id } = req.params;
-  try{
-      const turn = cancelAppointment(Number(id));
-      if(!turn){
-          throw new Error('No se pudo cancelar el turno');
-      }
-      res.status(200).json(turn);
-      
-  }catch (error){
-      res.status(404).json(error);
-      console.log(error);
-    
+  try {
+    const turn = cancelAppointment(Number(id));
+    if (!turn) {
+      throw new Error("No se pudo cancelar el turno");
+    }
+    res.status(200).json(turn);
+  } catch (error) {
+    res.status(404).json(error);
+    console.log(error);
   }
 };
 
 export const getTurnById = async (req: Request, res: Response) => {
   const { id } = req.params;
 
-    try {
-          const turn = GetAppointmentById(Number(id));
-          if(!turn){
-             throw new Error('No se encontro el turno');
-          }
-          res.status(200).json(turn);
-    } catch (error) {
-        res.status(404).json(error);
-        console.log(error);
+  try {
+    const turn = GetAppointmentById(Number(id));
+    if (!turn) {
+      throw new Error("No se encontro el turno");
     }
+    res.status(200).json(turn);
+  } catch (error) {
+    res.status(404).json(error);
+    console.log(error);
+  }
+};
+
+export const getTurnByUserId = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const turn = GetAppointmentByUserId(Number(id));
+    if (!turn) {
+      throw new Error("No se encontro el turno");
+    }
+    res.status(200).json(turn);
+  } catch (error) {
+    res.status(404).json(error);
+    console.log(error);
+  }
 };

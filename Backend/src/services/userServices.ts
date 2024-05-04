@@ -27,7 +27,7 @@ export const getUsersService = async (): Promise<User[] | undefined> => {
 export const getUserByIdService = async (
   id: number
 ): Promise<User | null | undefined> => {
-  try {
+  try {  
     const data : User | null = await userRepository.findOneBy({  id: id });
     return data;
   } catch (error) {

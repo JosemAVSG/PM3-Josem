@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 
 import { TOKEN_SECRET } from "../config/env";
 
-interface IPayload {
+export interface IPayload {
     _id: string;
     iat: number;
     exp: number;

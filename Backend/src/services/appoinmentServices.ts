@@ -1,16 +1,13 @@
 import { appoimentDto } from "../dto/user.dto";
-// import { IAppointment } from "../interfaces/appoiment";
 import { Turn } from "../entities/turn";
 import {  createHorarioService } from "./horarioServices";
 import { Horario } from "../entities/horario";
 import { Historial } from "../entities/historial";
 import { addHistorialService } from "./historialServices";
-// import horarioRepository from "../repositories/horarioRepository";
 import turnRepository from "../repositories/turnRepository";
 import userRepository from "../repositories/userRepository";
 import {AppDataSource} from "../config/data-source";
 
-// const appointments: IAppointment[] = [];
 
 export const GetAllAppointments = async (): Promise<Turn[]> => {
   return await turnRepository.find({relations : {user:true , horario:true, historial:true}});

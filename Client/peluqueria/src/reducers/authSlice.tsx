@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppThunk } from "../redux/store";
-import { loginRequest, registerRequest } from '../api/auth';
+import { getUser, loginRequest, registerRequest } from '../api/auth';
 import { IUser, IUserLogin } from "../types/user.interface";
 import { verifyToken } from "../api/auth";
 import Cookie from 'js-cookie';
 // import { ITurn } from "../types/turn.interface";
-import {  getTurns } from "../api/turn";
+import {  getTurnByUserId} from "../api/turn";
 const initialState = {
   isAuthenticated: false,
   user:null,
@@ -13,9 +13,6 @@ const initialState = {
   loading: true,
   userTurns:[], 
 };
-
-
-
 
 const authSlice = createSlice({
   name: "auth",
@@ -119,13 +116,17 @@ export const signupUser = (userData: IUser) : AppThunk => {
           return
         }
         const res = await verifyToken();
-     
+
+        
         if (!res.data){
           dispatch(Authentication(false));
         } 
         dispatch(Authentication(true));
         dispatch(Loading(false));
-         dispatch(User(res.data));
+        const {payload:{id}} = res.data
+        const user= await getUser(id);
+        console.log(user.data);
+        dispatch(User({login:true, user:user.data}));
       } catch (error) {
         dispatch(Authentication(false));
         dispatch(Loading(false));
@@ -135,10 +136,10 @@ export const signupUser = (userData: IUser) : AppThunk => {
   
   };
 
-  export const turnsAction = (): AppThunk => {
+  export const turnsAction = (id:number): AppThunk => {
     return async (dispatch) => {
       try {    
-        const res   = await getTurns();
+        const res   = await getTurnByUserId(id);
         dispatch(gettingTurns(res.data));
       } catch (error) {
           dispatch(setError(error as Error)); 
