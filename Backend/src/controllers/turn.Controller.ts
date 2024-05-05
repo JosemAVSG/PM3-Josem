@@ -24,6 +24,7 @@ export const createTurn = async (req: Request, res: Response) => {
     if (!newTurn) {
       throw new Error("No se Pudo Crear el Turno");
     }
+    
     res.status(201).json(newTurn);
   } catch (error) {
     res.status(404).json(error);

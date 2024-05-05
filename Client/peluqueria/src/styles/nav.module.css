@@ -41,3 +41,16 @@
         color:#e7e7e7;
     }
 }
+.link_logout{
+    padding: 5px;
+    font-size: bold;
+    background-color: #215368;
+    color: var(--text-color);
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    width: 5rem;
+}
+.link_logout:hover{
+    background-color: #5f022d;
+}

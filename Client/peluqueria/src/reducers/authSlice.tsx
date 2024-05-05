@@ -5,7 +5,7 @@ import { IUser, IUserLogin } from "../types/user.interface";
 import { verifyToken } from "../api/auth";
 import Cookie from 'js-cookie';
 // import { ITurn } from "../types/turn.interface";
-import {  createTurn, getTurnByUserId} from "../api/turn";
+import {  cancelTurn, createTurn, getTurnByUserId} from "../api/turn";
 import { turnDto } from "../types/turn.interface";
 const initialState = {
   isAuthenticated: false,
@@ -170,6 +170,25 @@ export const signupUser = (userData: IUser) : AppThunk => {
     }
   }
 
+  export const cancelTurnAction = (id:number): AppThunk => {
+
+    return async (dispatch) => {
+      try {    
+        const res = await cancelTurn(id);
+        dispatch(gettingTurns(res.data));
+      } catch (error) {
+          dispatch(setError(error as Error)); 
+      }
+    }
+
+  }
+  export const logout = (): AppThunk => {
+    return async (dispatch) => {
+      Cookie.remove("token");
+      dispatch(Authentication(false));
+      dispatch(Loading(false));
+    }
+  }
 export const { RegisterSucces, UserId , setError, LoginSucces, LoginFail, RegisterFail, Loading, Authentication, User, gettingTurns } = authSlice.actions;
 export default authSlice.reducer
 

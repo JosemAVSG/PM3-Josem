@@ -1,7 +1,7 @@
 import { useForm , SubmitHandler } from "react-hook-form"
 import {  turnDto } from "../types/turn.interface";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createTurnAction } from "../reducers/authSlice";
 
 interface IFormInput {
@@ -37,7 +37,7 @@ const NewTurn : React.FC = () => {
   return (
     <div>
       <h1>New Turn</h1>
-
+      <Link to="/turns"> Regresar </Link>
       <form onSubmit={handleSubmit(onSubmit)} >
         <label htmlFor="dia">Date</label>
         <select  id="dia" {...register("dia")} >
