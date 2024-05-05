@@ -10,11 +10,14 @@ export const createHorarioService = async (turntime: horarioDto): Promise<Horari
     try {
      await queryRunner.startTransaction();
         // Buscar el turno por su ID
-        // Crear y guardar el horario asociado al turno
-        const timein = new Date(time);
-        const timeout = new Date(timeEnd);
+         
        
+        const timein = time
+        const timeout = timeEnd
         
+
+        console.log(timein,timeout);
+    
         const newHorario = horarioRepository.create({
             date: date,
             time: timein,

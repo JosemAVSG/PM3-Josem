@@ -6,7 +6,7 @@ import {
   GetAppointmentById,
   GetAppointmentByUserId,
 } from "../services/appoinmentServices";
-import { log } from "console";
+;
 
 export const createTurn = async (req: Request, res: Response) => {
   const { dia, time, timeEnd, userId, description } = req.body;
@@ -47,7 +47,7 @@ export const getAllTurns = async (req: Request, res: Response) => {
 export const cancelTurn = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const turn = cancelAppointment(Number(id));
+    const turn = await cancelAppointment(Number(id));
     if (!turn) {
       throw new Error("No se pudo cancelar el turno");
     }
@@ -62,7 +62,7 @@ export const getTurnById = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const turn = GetAppointmentById(Number(id));
+    const turn = await GetAppointmentById(Number(id));
     if (!turn) {
       throw new Error("No se encontro el turno");
     }
@@ -76,7 +76,7 @@ export const getTurnById = async (req: Request, res: Response) => {
 export const getTurnByUserId = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const turn = GetAppointmentByUserId(Number(id));
+    const turn = await GetAppointmentByUserId(Number(id));
     if (!turn) {
       throw new Error("No se encontro el turno");
     }

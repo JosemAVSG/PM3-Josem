@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import MisTurnos from "./views/MisTurnos";
 import ProtectedRoute from "./components/ProtectedRoute";
+import NewTurn from "./components/NewTurn";
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
           <Route path="/*" element={<NotFound />} />
           <Route element={<ProtectedRoute />}>
             <Route path="turns" element={<MisTurnos />} />
+            <Route path="/turnForm" element={<NewTurn/>} />
           </Route>
         </Routes>
       </Router>

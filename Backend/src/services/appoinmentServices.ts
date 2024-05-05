@@ -9,17 +9,18 @@ import userRepository from "../repositories/userRepository";
 import {AppDataSource} from "../config/data-source";
 
 
+
 export const GetAllAppointments = async (): Promise<Turn[]> => {
   return await turnRepository.find({relations : {user:true , horario:true, historial:true}});
 };
 
 export const GetAppointmentByUserId = async (id: number): Promise<Turn[] | null | undefined> => {
   try {
-    const foundAppointment = await turnRepository.find({
-      relations : {user:true, horario:true, historial:true},
+    return await turnRepository.find({
+      relations : { horario:true },
       where: { user:{id:id} },
     })
-    return foundAppointment;
+   
   } catch (error) {
     console.log(error);
   }

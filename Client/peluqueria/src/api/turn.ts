@@ -1,10 +1,10 @@
-import { ITurn } from "../types/turn.interface";
+import {  turnDto } from "../types/turn.interface";
 import instance from "./axios";
 
 export const getTurns = async () => {
     return await instance.get("/turns");
 }
-export const createTurn = async (data: ITurn) => {
+export const createTurn = async (data: turnDto) => {
     return await instance.post("/turns/schedule", data);
 }
 
