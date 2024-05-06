@@ -170,12 +170,13 @@ export const signupUser = (userData: IUser) : AppThunk => {
     }
   }
 
-  export const cancelTurnAction = (id:number): AppThunk => {
+  export const cancelTurnAction = (id:number, userid:number): AppThunk => {
 
     return async (dispatch) => {
       try {    
         const res = await cancelTurn(id);
-        dispatch(gettingTurns(res.data));
+        dispatch(turnsAction(userid));
+        console.log(res.data);
       } catch (error) {
           dispatch(setError(error as Error)); 
       }

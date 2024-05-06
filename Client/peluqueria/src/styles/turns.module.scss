@@ -1,7 +1,7 @@
 .container{
     display: flex;
     flex-direction: column;
-    align-items: center;
+
     justify-content: center;
     padding: 20px;
 }
@@ -22,8 +22,8 @@
     justify-content: start;
     color: rgba(56, 149, 202, 0.678);
     select{
-      background-color: rgba(56, 149, 202, 0.678);
-      color: aliceblue;
+      background-color: rgba(1, 32, 49, 0.678);
+      color: rgba(248, 248, 248, 0.87);
     }
 }
 .turns nav button{
@@ -33,6 +33,29 @@
     }
  
 }
-.turn nav button:hover{
+.turns div{
+    font-size: 16px;
+    font-weight: 500;
+   
+}
+
+
+.turns nav button:hover{
     background-color: rgba(11, 55, 80, 0.808);
+}
+.button{
+    display: flex;
+    justify-content: end;
+    align-self: flex-end;
+    align-items: center;
+    margin: 10px;
+    gap: 10px;
+    background-color: rgba(56, 149, 202, 0.678);
+    padding: 10px;
+    border-radius: 10px;
+    
+}
+.button:hover{
+    background-color: rgba(11, 55, 80, 0.808);
+    
 }

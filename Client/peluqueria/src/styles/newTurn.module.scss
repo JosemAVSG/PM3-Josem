@@ -1,0 +1,44 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.close{
+    position: absolute;
+    top: 100px;
+    right: 10px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.5rem;
+    background-color: #358f8f;
+    padding: 10px;
+    border-radius: 10px;
+
+
+    &:hover{
+        background-color: #4d0202;
+        color: #358f8f;
+    }
+}
+.hero{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+   img{
+       position: relative;
+   }
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 0.5rem;
+}
+

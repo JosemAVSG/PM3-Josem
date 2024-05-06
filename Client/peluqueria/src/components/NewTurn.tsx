@@ -3,7 +3,10 @@ import {  turnDto } from "../types/turn.interface";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { Link, useNavigate } from "react-router-dom";
 import { createTurnAction } from "../reducers/authSlice";
-
+import styles from '../styles/newTurn.module.scss';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import hero from '../assets/hero.jpg';
 interface IFormInput {
   dia: string;
   time: Date;
@@ -35,10 +38,17 @@ const NewTurn : React.FC = () => {
     };
 
   return (
-    <div>
+    <div className="h-screen [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#043946_100%)] ">
+      <div className={styles.container}>
+      <div className={styles.close}>
+      <Link to="/turns"> <FontAwesomeIcon icon={faX}/> </Link>
+      </div>
+      <div className={styles.hero}>
+        <img src={hero}></img>
+      </div>
+      <div className={styles.form_container}>
       <h1>New Turn</h1>
-      <Link to="/turns"> Regresar </Link>
-      <form onSubmit={handleSubmit(onSubmit)} >
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form} >
         <label htmlFor="dia">Date</label>
         <select  id="dia" {...register("dia")} >
           <option value="Lunes">Lunes</option>
@@ -59,6 +69,10 @@ const NewTurn : React.FC = () => {
           { errors.description && <p>{errors.description.message}</p>}
         <input type="submit" />
       </form>
+
+      </div>
+
+      </div>
 
     </div>
   )

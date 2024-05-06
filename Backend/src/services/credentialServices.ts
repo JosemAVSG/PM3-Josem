@@ -37,8 +37,9 @@ export const createCredentialService = async (  credentiales: credentialDto): Pr
       throw new Error("User not found");
     }
   } catch (error) {
+  
     await queryRunner.rollbackTransaction();
-    throw Error("Error:" + error);
+
   } finally {
     await queryRunner.release();
   }
@@ -60,20 +61,20 @@ export const ValidateCredential = async (
       throw new Error("Credentials not found");
     }
     const { id } = foundcredentials;
+    
     const findUser = await userRepository.find({
       where: { credentials: { id: id } },
       relations: { credentials: true },})
-    console.log(findUser.map((user) => user));
+  
     
     if (!findUser) {
       throw new Error("User not found");
     }
     const credentials = findUser[0].credentials;
-     console.log("credenciales", credentials);
+
       
     const truePassword = await isValidPassword(password, credentials.password);
-   
-    console.log(truePassword);
+ 
     
     if (truePassword === false ) {
       throw new Error("Password not valid");

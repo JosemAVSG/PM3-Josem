@@ -10,7 +10,10 @@ import {
 
 export const createTurn = async (req: Request, res: Response) => {
   const { dia, time, timeEnd, userId, description } = req.body;
+
   try {
+    if (!dia || !time || !timeEnd || !userId || !description) {
+      throw new Error("Todos los campos son obligatorios");}
     const status = true;
     const newTurn = await CreateAppointment({
       dia,
