@@ -54,6 +54,7 @@ const Register : React.FC = () => {
 
   return (
     <>
+    <div className="h-screen-full absolute w-full  [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#043946_100%)]">
       <div className={style.wrapper}>
         <div className={style.box}>
           <h2>Register</h2>
@@ -152,6 +153,7 @@ const Register : React.FC = () => {
           </form>
         </div>
       </div>
+    </div>
     </>
   );
 };

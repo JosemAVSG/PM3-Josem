@@ -20,14 +20,15 @@
 .turns nav{
     display: flex;
     justify-content: start;
-    color: rgba(56, 149, 202, 0.678);
+    color: rgba(2, 2, 2, 0.678);
+    font-size: 18px;
     select{
-      background-color: rgba(1, 32, 49, 0.678);
+      background-color: rgba(0, 64, 100, 0.678);
       color: rgba(248, 248, 248, 0.87);
     }
 }
 .turns nav button{
-    background-color: rgba(56, 149, 202, 0.678);
+    background-color: rgba(0, 64, 100, 0.678);
     svg{
         fill: aliceblue;
     }

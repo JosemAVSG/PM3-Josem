@@ -30,6 +30,7 @@ const Login: React.FC = () => {
 
   return (
     <>
+    <div className="h-screen absolute w-full [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#043946_100%)]">
       <div className={style.wrapper}>
         <div className={style.box}>
           <h2>Login</h2>
@@ -81,6 +82,7 @@ const Login: React.FC = () => {
             </div>
           </form>
         </div>
+      </div>
       </div>
     </>
   );
