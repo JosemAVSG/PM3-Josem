@@ -15,6 +15,12 @@ export const getUsersService = async (): Promise<User[] | undefined> => {
 
   try {
     const users : User[] | undefined = await userRepository.find({
+      select:{
+        credentials:{
+          username: true,
+          password: false
+        }
+      },
       relations: {
         credentials: true,
       },

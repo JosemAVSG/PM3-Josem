@@ -7,12 +7,32 @@
 }
 .turns{
     display: flex;
+    background-color: #141B1F;
     flex-direction: column;
-    align-items: center;
+    // align-items: center;
     justify-content: center;
     padding: 20px;
-    gap: 50px;
+    // gap: 50px;
     list-style: none;
     width: 100%;
     height: 100%;
+}
+.turns nav{
+    display: flex;
+    justify-content: start;
+    color: rgba(56, 149, 202, 0.678);
+    select{
+      background-color: rgba(56, 149, 202, 0.678);
+      color: aliceblue;
+    }
+}
+.turns nav button{
+    background-color: rgba(56, 149, 202, 0.678);
+    svg{
+        fill: aliceblue;
+    }
+ 
+}
+.turn nav button:hover{
+    background-color: rgba(11, 55, 80, 0.808);
 }

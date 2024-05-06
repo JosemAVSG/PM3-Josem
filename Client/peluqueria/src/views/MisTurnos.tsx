@@ -66,7 +66,9 @@ const MisTurnos = () => {
   <div className={styles.container}>
     <div>
       <h2>Agregar turno</h2>
+      <div className={styles.button}>
       <Link to="/turnForm">+</Link>
+      </div>
     </div>
 {/* 
     <div className={styles.turns}>
