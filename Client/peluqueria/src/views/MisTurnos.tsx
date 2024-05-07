@@ -66,18 +66,32 @@ const MisTurnos = () => {
     {
       name: "Estado",
       selector: (row) => (row.status === true ? "Activo" : "Inactivo"),
-      sortable: true,
+      conditionalCellStyles: [
+      {  when: (row) => row.status === false,
+         style: row => ({ color: row.status === false ? "red" : "green" , fontWeight:  "bold"}),
+      },
+     
+      ]
     },
     {
-      name: "Acciones",
-      cell: (row) => <button onClick={() => handleDelete(row.id) }><FontAwesomeIcon className="size-6" icon={faTrash} /></button>,
-  
+      name: "Eliminar",
+      cell: (row) => <button onClick={() => handleDelete(row.id) }><FontAwesomeIcon className="size-6" icon={faTrash} /></button> , 
+      button: true,
     },
+    {
+      name: "Editar",
+      button: true,
+      cell: (row) => <button onClick={() => handleDelete(row.id) }><FontAwesomeIcon className="size-6" icon={faTrash} /></button> ,
+    }
   ];
+
+  const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTurns(turn.filter((turn) => turn.description.toLowerCase().includes(e.target.value.toLowerCase())));
+  };
 
   return (
     <>
-    <div className="h-screen [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#043946_100%)]  " > 
+    <div className="h-screen-full [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#043946_100%)]  " > 
   
       <div className={styles.container}>
         <Link to="/turnForm" className={styles.button}>
@@ -95,6 +109,8 @@ const MisTurnos = () => {
           {turns?.length === 0 ? (
             <h2>No tienes turnos</h2>
           ) : (
+            <div className='conatiner mt-5'> 
+            <div  className="text-end"><input type="text" placeholder="Buscar..." onChange={handleFilter} /></div>
             <DataTable
               title="Mis turnos"
               columns={columns}
@@ -104,6 +120,7 @@ const MisTurnos = () => {
               responsive
              
             />
+            </div>
           )}
         </div>
       </div>
