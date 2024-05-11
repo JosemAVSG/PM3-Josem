@@ -5,12 +5,10 @@ import { Turn } from "./turn";
 export class Horario {
     @PrimaryGeneratedColumn()
     id: number;
-    @Column()
-    date: string;
-    @Column({ type: "time", default: "06:00:00" })
+    @Column({ type: "date" })
+    date: Date;
+    @Column({ type: "time"})
     time: Date;
-    @Column({ type: "time", default: "18:00:00" }) 
-    timeEnd: Date;
     @OneToMany(() => Turn, (turn) => turn.horario)
     turns: Turn[];
 }

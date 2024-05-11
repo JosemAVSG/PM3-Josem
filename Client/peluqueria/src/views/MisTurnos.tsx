@@ -34,7 +34,7 @@ const MisTurnos = () => {
     } else {
       setTurns([]);
     }
-  }, [turns, turn]);
+  }, [turns]);
 
   const handleDelete = (id: number) => {
     if(userid){
@@ -54,24 +54,18 @@ const MisTurnos = () => {
       sortable: true,
     },
     {
-      name: `Hora de inicio`,
+      name: `Hora`,
       selector: (row) => row.horario.time.toString(),
-      sortable: true,
-    },
-    {
-      name: "Hora de fin",
-      selector: (row) => row.horario.timeEnd.toString(),
       sortable: true,
     },
     {
       name: "Estado",
       selector: (row) => (row.status === true ? "Activo" : "Inactivo"),
-      conditionalCellStyles: [
-      {  when: (row) => row.status === false,
-         style: row => ({ color: row.status === false ? "red" : "green" , fontWeight:  "bold"}),
-      },
-     
-      ]
+      // conditionalCellStyles: [
+      // {  when: (row) => row.status === false,
+      //    style: row => ({ color: row.status === false ? "red" : "green" , fontWeight:  "bold"}),
+      // },
+      // ]
     },
     {
       name: "Eliminar",
@@ -91,7 +85,7 @@ const MisTurnos = () => {
 
   return (
     <>
-    <div className="h-screen-full [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#043946_100%)]  " > 
+    <div className="h-screen [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#043946_100%)]  " > 
   
       <div className={styles.container}>
         <Link to="/turnForm" className={styles.button}>

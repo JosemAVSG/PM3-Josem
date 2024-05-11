@@ -39,7 +39,7 @@ export const GetAppointmentById = async ( id: number ) : Promise<Turn | null | u
   }
 }
 export const CreateAppointment = async (appointment: appoimentDto):Promise<Turn | undefined> => {
-  const { dia, time, timeEnd, userId, status, description } = appointment;
+  const { dia, time, userId, status, description } = appointment;
   
   
   try {
@@ -57,7 +57,6 @@ export const CreateAppointment = async (appointment: appoimentDto):Promise<Turn 
     const horario: Horario | undefined = await createHorarioService({
       date: dia,
       time:time,
-      timeEnd: timeEnd ,
       idturn: newAppointment.id,
     });
     const historial : Historial | undefined = await addHistorialService({ idturn: newAppointment.id} )

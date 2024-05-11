@@ -34,7 +34,9 @@ export const getUserByIdService = async (
   id: number
 ): Promise<User | null | undefined> => {
   try {  
-    const data : User | null = await userRepository.findOneBy({  id: id });
+    const data : User | null = await userRepository.findOneOrFail({  where: {  id: id }, relations:{
+      turns: true
+    }});
     return data;
   } catch (error) {
     console.log(error);

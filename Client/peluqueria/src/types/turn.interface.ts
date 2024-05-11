@@ -5,10 +5,9 @@
     user:number
     horario:{
         id: number
-        name: string
+        description: string
         date: Date
         time: Date
-        timeEnd: Date
         userId: number
     }
     historial: number
@@ -16,9 +15,8 @@
 }
 
 export interface  turnDto{
-     dia: string
+     dia: Date
      time: Date
-     timeEnd: Date
      userId: number
      description: string
 }

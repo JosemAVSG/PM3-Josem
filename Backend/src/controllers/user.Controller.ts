@@ -96,12 +96,9 @@ export const verifyToken = async (req: Request, res: Response) => {
   // const token = Array.isArray(req.headers['token']) ? req.headers['token'][0] : req.headers['token'];
   const {token} = req.cookies;
 
-   
-    
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
     }
-  
     try {
       const payload =  jwt.verify(token, TOKEN_SECRET) as IPayload;
 

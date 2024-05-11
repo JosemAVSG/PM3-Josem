@@ -12,7 +12,6 @@ export interface userDto {
     nDni: number;
     username: string;
     password: string;
-
 }
 
 export interface loginDto{
@@ -20,17 +19,15 @@ export interface loginDto{
     password: string;
 }
 export interface appoimentDto {
-    dia: string ;
-    time: Date;
-    timeEnd: Date;
+    dia: Date ;
+    time: string;
     description: string;
     userId: number;
     status: boolean;
 }
 export interface horarioDto {
-    date: string;
-    time: Date;
-    timeEnd: Date;
+    date: Date;
+    time: string;
     idturn:number;
 }
 
