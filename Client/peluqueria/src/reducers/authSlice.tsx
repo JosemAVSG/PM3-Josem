@@ -4,7 +4,6 @@ import { getUser, loginRequest, registerRequest } from '../api/auth';
 import { IUser, IUserLogin } from "../types/user.interface";
 import { verifyToken } from "../api/auth";
 import Cookie from 'js-cookie';
-// import { ITurn } from "../types/turn.interface";
 import {  cancelTurn, createTurn, getTurnByUserId} from "../api/turn";
 import { turnDto } from "../types/turn.interface";
 const initialState = {

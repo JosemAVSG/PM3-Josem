@@ -17,7 +17,6 @@ const Turn = ( props : ITurn ) => {
           <td>{props.id}</td>
           <td>{props.description}</td>
           <td>{ props.horario.time.toString()}</td>
-          <td>{props.horario.timeEnd.toString()}</td>
           <td>{props.status===true? "Activo" : "Inactivo"}</td>
 
         </tr>

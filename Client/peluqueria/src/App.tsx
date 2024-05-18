@@ -19,7 +19,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/*" element={<NotFound />} />
           <Route element={<ProtectedRoute />}>
-            <Route path="turns" element={<MisTurnos />} />
+            <Route path="/turns" element={<MisTurnos />} />
             <Route path="/turnForm" element={<NewTurn/>} />
           </Route>
         </Routes>
