@@ -55,7 +55,7 @@ const NewTurn: React.FC = () => {
               <input type="date" id="dia" {...register("dia")} />
               {errors.dia && <p>{errors.dia.message}</p>}
               <label htmlFor="time">Time</label>
-              <input type="time" id="time" {...register("time")} />
+              <input type="time" id="time" min="10:00" max="18:00" {...register("time")} />
               {errors.time && <p>{errors.time.message}</p>}
               <select  {...register("description")}>
                 <option value="Peinado">Peinado</option>
