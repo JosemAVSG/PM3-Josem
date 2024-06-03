@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../reducers/authSlice";
 import {Link} from "react-router-dom";
-import imguser from "../assets/user.svg";
+import imguser from '../assets/user.svg'
+import barberlogo from '../assets/logo barberbay.png';
 interface IUserlogin {
   login: boolean;
   user: {
@@ -15,7 +16,6 @@ interface IUserlogin {
     birthdate: Date;
     nDni: number;
     image: string;
-    
   };
 }
 const Navbar: React.FC = () => {
@@ -31,7 +31,10 @@ const Navbar: React.FC = () => {
   return (
     <>
       <nav className={styles.navbar}>
-        <div className={styles.logo}>BarberBay</div>
+        <div className={styles.logo}>
+        <img src={barberlogo} width={"50"} height={"50"} alt="logo"></img>
+          BarberBay
+          </div>
 
         <div className={styles.links} id="navbarNav">
           {isAuthenticated ? (
@@ -42,7 +45,7 @@ const Navbar: React.FC = () => {
               className="menu-btn focus:outline-none focus:shadow-outline flex flex-wrap items-center"
             >
               <div className="w-10 h-10 overflow-hidden rounded-full">
-                <img className="w-full h-full object-cover" src={ user?.user?.image ? user?.user?.image : imguser} />
+                <img className="w-full h-full object-cover" src={ user?.user?.image === null  ? user?.user?.image : imguser} />
               </div>
               <div className="ml-2 capitalize flex ">
                 <h1 className="text-md text-black font-semibold m-0 p-0 leading-none">
@@ -60,7 +63,6 @@ const Navbar: React.FC = () => {
               }`}
             >
               <Link
-                exact="true"
                 to="/profile"
                 className="px-4 py-2 block bg-white hover:bg-gray-600 hover:text-gray-900 transition-all duration-300 ease-in-out"
               >

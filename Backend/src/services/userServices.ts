@@ -9,8 +9,6 @@ import {
 } from "./credentialServices";
 import userRepository from "../repositories/userRepository";
 
-const user: IUser[] = [];
-
 export const getUsersService = async (): Promise<User[] | undefined> => {
 
   try {
@@ -34,9 +32,7 @@ export const getUserByIdService = async (
   id: number
 ): Promise<User | null | undefined> => {
   try {  
-    const data : User | null = await userRepository.findOneOrFail({  where: {  id: id }, relations:{
-      turns: true
-    }});
+    const data : User | null = await userRepository.findOneOrFail({  where: {  id: id }});
     return data;
   } catch (error) {
     console.log(error);

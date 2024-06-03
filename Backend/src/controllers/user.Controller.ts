@@ -72,12 +72,9 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const loginUser = async (req: Request, res: Response) => {
   const { username, password } = req.body;
- 
-  
   try {
     const user = await ValidateCredential({username, password});
 
-    
     if(user){
       const tokenAccess = await createAccessToken({ id: user.id });
       res.cookie("token", tokenAccess);
@@ -93,7 +90,6 @@ export const loginUser = async (req: Request, res: Response) => {
 
 export const verifyToken = async (req: Request, res: Response) => {
     
-  // const token = Array.isArray(req.headers['token']) ? req.headers['token'][0] : req.headers['token'];
   const {token} = req.cookies;
 
     if (!token) {
@@ -103,7 +99,6 @@ export const verifyToken = async (req: Request, res: Response) => {
       const payload =  jwt.verify(token, TOKEN_SECRET) as IPayload;
 
       return res.status(200).json({ message: "Authorized", payload});
-      // Rest of your code
     } catch {
       return res.status(401).json({ message: "Unauthorized" });
     }
