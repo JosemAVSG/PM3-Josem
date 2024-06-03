@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
     <>
       <nav className={styles.navbar}>
         <div className={styles.logo}>
-        <img src={barberlogo} width={"50"} height={"50"} alt="logo"></img>
+        <img src={barberlogo} width={'30'} height={"30"} alt="logo"></img>
           BarberBay
           </div>
 
